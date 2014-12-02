@@ -17,12 +17,12 @@ buildscript {
 
 apply plugin: 'forge'
 
-version = "1.7.10-a"
+version = "1.7.2-a"
 group= "mods.SkipSignGUI" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = "SkipSignGUI"
 
 minecraft {
-    version = "1.7.10-10.13.0.1208"
+    version = "1.7.2-10.12.2.1121"
     assetDir = "eclipse/assets"
 }
 
@@ -39,7 +39,6 @@ dependencies {
     // for more info...
     // http://www.gradle.org/docs/current/userguide/artifact_dependencies_tutorial.html
     // http://www.gradle.org/docs/current/userguide/dependency_management.html
-
 }
 
 processResources
@@ -63,5 +62,4 @@ processResources
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: 'CoFHCore-[1.7.10]3.0.0B6-32.jar')
 }
