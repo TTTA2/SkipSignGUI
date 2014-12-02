@@ -1,10 +1,13 @@
 package mods.SkipsignGUI;
 
+import java.io.IOException;
+
+import org.apache.logging.log4j.Level;
 import org.lwjgl.opengl.GL11;
 
-import cpw.mods.fml.common.FMLLog;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
+import net.minecraftforge.fml.common.FMLLog;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import net.java.games.input.Keyboard;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
@@ -94,13 +97,10 @@ public class GuiOption extends GuiScreen
 		this.buttonList.add(SignDO);
 		this.buttonList.add(ChestDO);
 		
-//		this.field_146292_n.add(drawMode);
-//		this.field_146292_n.add(ScrGui);
 		this.buttonList.add(ChangeKey);
 		this.buttonList.add(ShowBoard);
 		this.buttonList.add(ChangeMode);
 		this.buttonList.add(ZoomKey);
-//		this.field_146292_n.add(range);
 	}
 	
 	
@@ -266,7 +266,11 @@ public class GuiOption extends GuiScreen
 
 	protected void keyTyped(char par1, int par2)
 	{
-		super.keyTyped(par1, par2);
+		try {
+			super.keyTyped(par1, par2);
+		} catch(IOException e) {
+			FMLLog.log(Level.FATAL, "keyTyped: %s", e.toString());
+		}
 		
 		if (KeyChange_ZoomKey && par2 != 1)
 		{

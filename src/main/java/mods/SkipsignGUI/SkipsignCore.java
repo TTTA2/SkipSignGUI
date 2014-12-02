@@ -4,7 +4,6 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockChest;
 import net.minecraft.block.BlockStairs;
 import net.minecraft.client.renderer.EntityRenderer;
-import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.entity.Render;
 
@@ -19,12 +18,13 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Map;
 
+import org.apache.logging.log4j.Level;
 import org.lwjgl.input.Keyboard;
 
 import net.minecraftforge.client.event.*;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.culling.Frustrum;
 import net.minecraft.client.renderer.entity.RenderManager;
+import net.minecraft.client.renderer.entity.RenderItem;
 import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.entity.item.EntityItemFrame;
@@ -41,31 +41,34 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
-import cpw.mods.fml.client.registry.ClientRegistry;
-import cpw.mods.fml.client.registry.RenderingRegistry;
-import cpw.mods.fml.common.DummyModContainer;
-import cpw.mods.fml.common.FMLCommonHandler;
-import cpw.mods.fml.common.FMLLog;
-import cpw.mods.fml.common.Mod;
-import cpw.mods.fml.common.Mod.EventHandler;
-import cpw.mods.fml.common.ModMetadata;
-import cpw.mods.fml.common.event.FMLInitializationEvent;
-import cpw.mods.fml.common.event.FMLPreInitializationEvent;
-import cpw.mods.fml.common.eventhandler.SubscribeEvent;
-import cpw.mods.fml.common.gameevent.TickEvent;
-import cpw.mods.fml.common.gameevent.TickEvent.RenderTickEvent;
-import cpw.mods.fml.relauncher.IFMLLoadingPlugin;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
+import net.minecraftforge.fml.client.registry.ClientRegistry;
+import net.minecraftforge.fml.client.registry.RenderingRegistry;
+import net.minecraftforge.fml.common.DummyModContainer;
+import net.minecraftforge.fml.common.FMLCommonHandler;
+import net.minecraftforge.fml.common.FMLLog;
+import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.common.Mod.EventHandler;
+import net.minecraftforge.fml.common.ModMetadata;
+import net.minecraftforge.fml.common.event.FMLInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.common.gameevent.TickEvent;
+import net.minecraftforge.fml.common.gameevent.TickEvent.RenderTickEvent;
+import net.minecraftforge.fml.relauncher.IFMLLoadingPlugin;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
-@Mod(modid = "SkipSign", version = "1.7.2-SignBoard|ItemFrame|Chest")
+import mods.SkipsignGUI.renderer.RenderItemFrameEx;
+import mods.SkipsignGUI.renderer.TileEntityChestRendererEx;
+import mods.SkipsignGUI.renderer.TileEntitySignRendererEx;
+
+@Mod(modid = "SkipSign", version = "1.8-SNAPSHOT")
 public class SkipsignCore
 {
 	private boolean key_down = false;
 	private int HoldTime = 0;
 
 	public static Setting ModSetting;
-
 	public static float renderPartialTicks;
 
 	@EventHandler
@@ -100,7 +103,7 @@ public class SkipsignCore
 		}
 		catch (Exception e)
 		{
-			//FMLLog.log(Level.SEVERE, "ErrorMessage:%s", (Object)e);
+			FMLLog.log(Level.FATAL, "preInit failed: %s", e.toString());
 		}
 		finally
 		{
@@ -111,42 +114,25 @@ public class SkipsignCore
 	@EventHandler
 	public void init(FMLInitializationEvent event)
 	{
+		RenderManager renderManager = Minecraft.getMinecraft().getRenderManager();
+		RenderItem renderItem = Minecraft.getMinecraft().getRenderItem();
+
+		RenderItemFrameEx renderItemFrame = new RenderItemFrameEx(renderManager, renderItem);
+		renderManager.entityRenderMap.remove(EntityItemFrame.class);
+		renderManager.entityRenderMap.put(EntityItemFrame.class, renderItemFrame);
+
+		TileEntitySignRendererEx signRenderer = new TileEntitySignRendererEx();
+		signRenderer.setRendererDispatcher(TileEntityRendererDispatcher.instance);
 		TileEntityRendererDispatcher.instance.mapSpecialRenderers.remove(TileEntitySign.class);
-		TileEntityRendererDispatcher.instance.mapSpecialRenderers.put(TileEntitySign.class, new TileEntitySignRendererEx());
+		TileEntityRendererDispatcher.instance.mapSpecialRenderers.put(TileEntitySign.class, signRenderer);
 
+		TileEntityChestRendererEx chestRenderer = new TileEntityChestRendererEx();
+		chestRenderer.setRendererDispatcher(TileEntityRendererDispatcher.instance);
 		TileEntityRendererDispatcher.instance.mapSpecialRenderers.remove(TileEntityChest.class);
-		TileEntityRendererDispatcher.instance.mapSpecialRenderers.put(TileEntityChest.class, new TileEntityChestRendererEx());
-
-		RenderManager.instance.entityRenderMap.remove(EntityItemFrame.class);
-		RenderManager.instance.entityRenderMap.put(EntityItemFrame.class, new RenderItemFrameEx());
-
-		if(FMLCommonHandler.instance().getSide() == Side.CLIENT)
-		{
-		}
-
-		Iterator iterator = TileEntityRendererDispatcher.instance.mapSpecialRenderers.values().iterator();
-		Iterator Eiterator = RenderManager.instance.entityRenderMap.values().iterator();
-
-		while (iterator.hasNext())
-		{
-			TileEntitySpecialRenderer tileentityspecialrenderer = (TileEntitySpecialRenderer)iterator.next();
-			tileentityspecialrenderer.func_147497_a(TileEntityRendererDispatcher.instance);
-		}
-
-		while (Eiterator.hasNext())
-		{
-			Render render = (Render)Eiterator.next();
-			render.setRenderManager(RenderManager.instance);
-		}
+		TileEntityRendererDispatcher.instance.mapSpecialRenderers.put(TileEntityChest.class, chestRenderer);
 
 		MinecraftForge.EVENT_BUS.register(this);
 		FMLCommonHandler.instance().bus().register(this);
-	}
-
-	@SideOnly(Side.CLIENT)
-	@SubscribeEvent
-	public void T(TextureStitchEvent ev)
-	{
 	}
 
 	@SideOnly(Side.CLIENT)
@@ -171,14 +157,14 @@ public class SkipsignCore
 	}
 
 	public boolean GetHoldKey()
-	{
-		return key_down;
+	{ 
+	 	return key_down;
 	}
 
-	private void addChatMessage(String str)
-	{
-		Minecraft.getMinecraft().ingameGUI.getChatGUI().printChatMessage(new ChatComponentText(str));
-	}
+	// private void addChatMessage(String str)
+	// {
+	// 	Minecraft.getMinecraft().ingameGUI.getChatGUI().printChatMessage(new ChatComponentText(str));
+	// }
 
 
 	@SubscribeEvent
@@ -187,12 +173,11 @@ public class SkipsignCore
 		if (event.phase == TickEvent.Phase.START)
 		{
 			renderPartialTicks = event.renderTickTime;
-
-			if (Minecraft.getMinecraft().thePlayer != null) DrawbleApi.beginFrustrum();
+	
+			if (Minecraft.getMinecraft().thePlayer != null) DrawableApi.beginFrustum();
 		}
 		else if (event.phase == TickEvent.Phase.END)
 		{
-
 		}
 	}
 

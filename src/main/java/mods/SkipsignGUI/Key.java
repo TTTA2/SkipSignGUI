@@ -1,6 +1,6 @@
 package mods.SkipsignGUI;
 
-import cpw.mods.fml.common.FMLLog;
+import net.minecraftforge.fml.common.FMLLog;
 
 public class Key
 {

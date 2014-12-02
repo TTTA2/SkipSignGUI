@@ -17,29 +17,13 @@ buildscript {
 
 apply plugin: 'forge'
 
-version = "1.7.10-a"
+version = "1.8-SNAPSHOT"
 group= "mods.SkipSignGUI" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = "SkipSignGUI"
 
 minecraft {
-    version = "1.7.10-10.13.0.1208"
-    assetDir = "eclipse/assets"
-}
-
-dependencies {
-    // you may put jars on which you depend on in ./libs
-    // or you may define them like so..
-    //compile "some.group:artifact:version:classifier"
-    //compile "some.group:artifact:version"
-      
-    // real examples
-    //compile 'com.mod-buildcraft:buildcraft:6.0.8:dev'  // adds buildcraft to the dev env
-    //compile 'com.googlecode.efficient-java-matrix-library:ejml:0.24' // adds ejml to the dev env
-
-    // for more info...
-    // http://www.gradle.org/docs/current/userguide/artifact_dependencies_tutorial.html
-    // http://www.gradle.org/docs/current/userguide/dependency_management.html
-
+    version = "1.8-11.14.0.1249-1.8"
+    runDir = "eclipse/assets"
 }
 
 processResources
@@ -63,5 +47,4 @@ processResources
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: 'CoFHCore-[1.7.10]3.0.0B6-32.jar')
 }
