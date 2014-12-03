@@ -26,7 +26,7 @@ import net.minecraft.util.MathHelper;
 
 public class DrawableApi
 {
-	// public static Frustum frustum = new Frustum();
+	public static Frustum frustum = new Frustum();
 
 	public static double DX = 0, DY = 0, DZ = 0;
 
@@ -40,88 +40,36 @@ public class DrawableApi
 		DY = player.prevPosY + (player.posY - player.prevPosY) * (double)f;
 		DZ = player.prevPosZ + (player.posZ - player.prevPosZ) * (double)f;
 
-		// frustum.setPosition(DX, DY, DZ);
+		frustum.setPosition(DX, DY, DZ);
 
 		// Minecraft.getMinecraft().renderGlobal.clipRenderersByFrustum(frustum, f);
 	}
 
 	public static boolean isDraw(World w, int x, int y, int z)
 	{
-		// Block chest = Block.getBlockFromName("chest");
+		Block chest = Block.getBlockFromName("chest");
+		AxisAlignedBB bb = chest.getCollisionBoundingBox(w, new BlockPos(x, y, z), chest.getDefaultState());
+		boolean ignoreFrustumCheck = false;
 
-		// AxisAlignedBB bb = chest.getCollisionBoundingBoxFromPool(w, x, y, z);
-
-		// boolean ignoreFrustumCheck = false;
-
-		return DrawableApi.isDraw1(w, x, y, z, DX, DY, DZ); // && (ignoreFrustumCheck || frustum.isBoundingBoxInFrustum(bb));
+		return DrawableApi.isDraw1(w, x, y, z, DX, DY, DZ) && (ignoreFrustumCheck || frustum.isBoundingBoxInFrustum(bb));
 	}
 
 	public static boolean isDraw(TileEntityChest tileEntity, double x, double y, double z)
 	{
-		// Block chest = Block.getBlockFromName("chest");
+		Block chest = Block.getBlockFromName("chest");
+		AxisAlignedBB bb = chest.getCollisionBoundingBox(tileEntity.getWorld(), tileEntity.getPos(), chest.getDefaultState());
+		boolean ignoreFrustumCheck = true;
 
-		// AxisAlignedBB bb = chest.getCollisionBoundingBoxFromPool(tileEntity.getWorldObj(), tileEntity.xCoord, tileEntity.yCoord, tileEntity.zCoord);
-
-		// boolean ignoreFrustumCheck = false;
-
-		return DrawableApi.isDraw1(tileEntity, DX, DY, DZ); //  && (ignoreFrustumCheck || frustum.isBoundingBoxInFrustum(bb));
-
-		//		boolean v = DrawableApi.isDraw1(tileEntity, DX, DY, DZ) && (ignoreFrustumCheck || frustum.isBoundingBoxInFrustum(bb));
-		//		
-		//		if (!v && tileEntity.adjacentChestChecked)
-		//		{
-		//			if (tileEntity.adjacentChestXPos != null)
-		//			{
-		//				return isDraw(tileEntity.adjacentChestXPos, tileEntity.adjacentChestXPos.xCoord, tileEntity.adjacentChestXPos.yCoord, tileEntity.adjacentChestXPos.zCoord);
-		//			}
-		//			else if (tileEntity.adjacentChestZPos != null)
-		//			{
-		//				return isDraw(tileEntity.adjacentChestZPos, tileEntity.adjacentChestZPos.xCoord, tileEntity.adjacentChestZPos.yCoord, tileEntity.adjacentChestZPos.zCoord);
-		//			}
-		//		}
-		//		else
-		//		{
-		//			return v; 
-		//		}
-		//		
-		//		return false;
-
+		return DrawableApi.isDraw1(tileEntity, DX, DY, DZ) && (ignoreFrustumCheck || frustum.isBoundingBoxInFrustum(bb));
 	}
-
-	//	public static boolean isDraw(TileEntityChest tileEntity, int x, int y, int z)
-	//	{
-	//		Block chest = Block.getBlockFromName("chest");
-	//
-	//		AxisAlignedBB bb = chest.getCollisionBoundingBoxFromPool(tileEntity.getWorldObj(), tileEntity.xCoord, tileEntity.yCoord, tileEntity.zCoord);
-	//
-	//		boolean ignoreFrustumCheck = false;
-	//
-	//		boolean v = DrawableApi.isDraw1(tileEntity, DX, DY, DZ) && (ignoreFrustumCheck || frustum.isBoundingBoxInFrustum(bb));
-	//		
-	//		if (!v && tileEntity.adjacentChestChecked)
-	//		{
-	//			if (tileEntity.adjacentChestXPos != null)
-	//			{
-	//				return isDraw(tileEntity.adjacentChestXPos, tileEntity.adjacentChestXPos.xCoord, tileEntity.adjacentChestXPos.yCoord, tileEntity.adjacentChestXPos.zCoord);
-	//			}
-	//		}
-	//		else
-	//		{
-	//			return v; 
-	//		}
-	//		
-	//		return false;
-	//	}
 
 	public static boolean isDraw(TileEntitySign tileEntity, double x, double y, double z)
 	{
-		// Block sign = Blocks.stone;
+		Block sign = Blocks.stone;
+		AxisAlignedBB bb = sign.getCollisionBoundingBox(tileEntity.getWorld(), tileEntity.getPos(), sign.getDefaultState());
+		boolean ignoreFrustumCheck = true;
 
-		// AxisAlignedBB bb = sign.getCollisionBoundingBoxFromPool(tileEntity.getWorldObj(), tileEntity.xCoord, tileEntity.yCoord, tileEntity.zCoord);
-
-		// boolean ignoreFrustumCheck = false;
-
-		return DrawableApi.isDraw1(tileEntity, DX, DY, DZ); //  && (ignoreFrustumCheck || frustum.isBoundingBoxInFrustum(bb));
+		return DrawableApi.isDraw1(tileEntity, DX, DY, DZ) && (ignoreFrustumCheck || frustum.isBoundingBoxInFrustum(bb));
 	}
 
 	@SideOnly(Side.CLIENT)

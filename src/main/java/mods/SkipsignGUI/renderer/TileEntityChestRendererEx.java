@@ -38,7 +38,9 @@ public class TileEntityChestRendererEx extends TileEntityChestRenderer
     @Override
     public void func_180538_a(TileEntityChest entity, double posX, double posZ, double p_180538_6_, float p_180538_8_, int p_180538_9_)
     {
-        if ((CheckVisibleState(entity) && isDropOff(entity, posX, posZ,  p_180538_6_)) || ((TileEntityChest)entity).getWorld() == null) {
+        if (Minecraft.getMinecraft().thePlayer == null || entity.getWorld() == null || 
+            (isDropOff(entity, posX, posZ, p_180538_6_) && CheckVisibleState(entity)))
+        {
             super.func_180538_a(entity, posX, posZ, p_180538_6_, p_180538_8_, p_180538_9_);
         }
     }
@@ -78,33 +80,24 @@ public class TileEntityChestRendererEx extends TileEntityChestRenderer
         switch (SkipsignCore.ModSetting.CheckDist.Int())
         {
         case 0:
-            int rad = SkipsignCore.ModSetting.ChestRange.Int();
-
-            List<Entity> entities = 
-                world.getEntitiesWithinAABB(EntityPlayer.class,
-                                            AxisAlignedBB.fromBounds(x - rad,
-                                                                     y - rad,
-                                                                     z - rad,
-                                                                     x + (rad + 1),
-                                                                     y + (rad + 1),
-                                                                     z + (rad + 1)));
-
-            for (Iterator iterator = entities.iterator(); iterator.hasNext();)
+            // ** VERY SLOW ** in Forge 1.8
+            /* 
+            AxisAlignedBB aabb = AxisAlignedBB.fromBounds(x - range, y - range, z - range, x + (range + 1), y + (range + 1), z + (range + 1));
+            for (Iterator iterator = world.getEntitiesWithinAABB(EntityPlayer.class, aabb).iterator(); iterator.hasNext();)
             {
                 Entity entity = (Entity)iterator.next();
                 EntityPlayer entityPlayer = (EntityPlayer)entity;
 
                 if (entityPlayer.getDisplayName().equals(player.getDisplayName()))
                 {
-                    return true;
+                    return false;
                 }
             }
-
+            */
         case 1:
             double dist = player.getDistance((double)x, (double)y, (double)z);
 
-            if (dist < SkipsignCore.ModSetting.ChestRange.Int() + 1 &&
-                dist > (-SkipsignCore.ModSetting.ChestRange.Int()))
+            if (dist < range + 1 && dist > -range)
             {
                 return true;
             }

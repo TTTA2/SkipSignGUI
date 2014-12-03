@@ -103,33 +103,25 @@ public class TileEntitySignRendererEx extends TileEntitySignRenderer
         switch (SkipsignCore.ModSetting.CheckDist.Int())
         {
         case 0:
-            int rad = SkipsignCore.ModSetting.SignRange.Int();
-
-            List<Entity> entities = 
-                world.getEntitiesWithinAABB(EntityPlayer.class,
-                                            AxisAlignedBB.fromBounds(x - rad,
-                                                                     y - rad,
-                                                                     z - rad,
-                                                                     x + (rad + 1),
-                                                                     y + (rad + 1),
-                                                                     z + (rad + 1)));
-
-            for (Iterator iterator = entities.iterator(); iterator.hasNext();)
+            // ** VERY SLOW ** in Forge 1.8
+            /* 
+            AxisAlignedBB aabb = AxisAlignedBB.fromBounds(x - range, y - range, z - range, x + (range + 1), y + (range + 1), z + (range + 1));
+            for (Iterator iterator = world.getEntitiesWithinAABB(EntityPlayer.class, aabb).iterator(); iterator.hasNext();)
             {
                 Entity entity = (Entity)iterator.next();
                 EntityPlayer entityPlayer = (EntityPlayer)entity;
 
                 if (entityPlayer.getDisplayName().equals(player.getDisplayName()))
                 {
-                    return true;
+                    return false;
                 }
             }
-
+            break;
+            */
         case 1:
             double dist = player.getDistance((double)x, (double)y, (double)z);
 
-            if (dist < SkipsignCore.ModSetting.SignRange.Int() + 1 &&
-                dist > (-SkipsignCore.ModSetting.SignRange.Int()))
+            if (dist < range + 1 && dist > -range)
             {
                 return true;
             }

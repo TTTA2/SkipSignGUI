@@ -89,40 +89,32 @@ public class RenderItemFrameEx extends RenderItemFrame
 		EntityPlayer player = mc.thePlayer;
 		int range = SkipsignCore.ModSetting.FrameRange.Int();
 
-		double x = entityItemFrame.posX;
-		double y = entityItemFrame.posY;
-		double z = entityItemFrame.posZ;
-
 		switch (SkipsignCore.ModSetting.CheckDist.Int())
 		{
 		case 0:
-			int rad = SkipsignCore.ModSetting.FrameRange.Int();
+            // ** VERY SLOW ** in Forge 1.8
+            /* 
+			double x = entityItemFrame.posX;
+			double y = entityItemFrame.posY;
+			double z = entityItemFrame.posZ;
 
-			List<Entity> entities = 
-				world.getEntitiesWithinAABB(EntityPlayer.class,
-											AxisAlignedBB.fromBounds(x - rad,
-																	 y - rad,
-																	 z - rad,
-																	 x + (rad + 1),
-																	 y + (rad + 1),
-																	 z + (rad + 1)));
+            AxisAlignedBB aabb = AxisAlignedBB.fromBounds(x - range, y - range, z - range, x + (range + 1), y + (range + 1), z + (range + 1));
+            for (Iterator iterator = world.getEntitiesWithinAABB(EntityPlayer.class, aabb).iterator(); iterator.hasNext();)
+            {
+                Entity entity = (Entity)iterator.next();
+                EntityPlayer entityPlayer = (EntityPlayer)entity;
 
-			for (Iterator iterator = entities.iterator(); iterator.hasNext();)
-			{
-				Entity entity = (Entity)iterator.next();
-				EntityPlayer entityPlayer = (EntityPlayer)entity;
-
-				if (entityPlayer.getDisplayName().equals(player.getDisplayName()))
-				{
-					return true;
-				}
-			}
-
+                if (entityPlayer.getDisplayName().equals(player.getDisplayName()))
+                {
+                    return false;
+                }
+            }
+            break;
+            */
 		case 1:
-			double dist = player.getDistance(x, y, z);
+			float dist = player.getDistanceToEntity(entityItemFrame);
 
-			if (dist < SkipsignCore.ModSetting.FrameRange.Int() + 1 &&
-			    dist > (-SkipsignCore.ModSetting.FrameRange.Int()))
+			if (dist < range + 1 &&  dist > -range)
 			{
 				return true;
 			}
