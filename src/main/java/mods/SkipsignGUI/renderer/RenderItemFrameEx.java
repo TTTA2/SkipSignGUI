@@ -25,12 +25,12 @@ import mods.SkipsignGUI.SkipsignCore;
 @SideOnly(Side.CLIENT)
 public class RenderItemFrameEx extends RenderItemFrame
 {
-    public RenderItemFrameEx(RenderManager p_i46166_1_, RenderItem p_i46166_2_)
-	{
-		super(p_i46166_1_, p_i46166_2_);
-	}
-	
-	@Override
+    public RenderItemFrameEx(RenderManager renderManager, RenderItem renderItem)
+    {
+        super(renderManager, renderItem);
+    }
+
+    @Override
     protected ResourceLocation getEntityTexture(Entity entity)
 	{
 		return super.getEntityTexture(entity);

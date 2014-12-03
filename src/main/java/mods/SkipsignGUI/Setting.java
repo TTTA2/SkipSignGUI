@@ -20,7 +20,7 @@ public class Setting
 	
 	public Setting()
 	{
-		VisibleKey = new Key(64, "ChangeModeKey", "I");
+		VisibleKey = new Key(66, "ChangeModeKey", "I");
 		SignVisible = new Key(0, "SignVisble", "I");
 		FrameVisible = new Key(0, "FrameVisble", "I");
 		ChestVisible = new Key(0, "ChestVisble", "I");

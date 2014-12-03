@@ -3,7 +3,6 @@ package mods.SkipsignGUI;
 import java.io.IOException;
 
 import org.apache.logging.log4j.Level;
-import org.lwjgl.opengl.GL11;
 
 import net.minecraftforge.fml.common.FMLLog;
 import net.minecraftforge.fml.relauncher.Side;
@@ -28,7 +27,7 @@ public class GuiOption extends GuiScreen
 {
 	public void drawScreen(int par1, int par2, float par3)
 	{
-		FontRenderer fontRenderer = this.fontRendererObj;    	
+		FontRenderer fontRenderer = this.fontRendererObj;
 		int x = this.width / 2;
 		int y = this.height / 2;
 		
@@ -51,7 +50,7 @@ public class GuiOption extends GuiScreen
 
 	public void initGui()
 	{
-		FontRenderer fontRenderer = this.fontRendererObj;    
+		FontRenderer fontRenderer = this.fontRendererObj;
 		
 		this.buttonList.clear();
 
@@ -288,60 +287,4 @@ public class GuiOption extends GuiScreen
 
 		Invalidate();
 	}
-
-	//	public GuiOption()
-	//	{
-		//		super(new ContainerOption());		
-	//	}
-	//
-	//	public GuiOption(EntityPlayer player, World world, int x, int y, int z)
-	//	{
-	//		super(new ContainerOption(player, world, x, y, z));		
-	//	}
-	//
-	//	@Override
-	//	protected void func_146979_b(int p_146979_1_, int p_146979_2_)
-	//	{
-	//		drawGuiContainerForegroundLayer(p_146979_1_, p_146979_2_);
-	//	}
-	//
-	//	@Override
-	//	protected void func_146976_a(float var1, int var2, int var3) 
-	//	{
-	//		drawGuiContainerBackgroundLayer(var1, var2, var3);
-	//	}
-	//
-	//	private int xStart, yStart;
-	//	
-	//	private void drawGuiContainerForegroundLayer(int var1, int va2)
-	//	{
-	//		FontRenderer fontRenderer = this.field_146289_q;
-	//		//fontRenderer.drawString("Gui Sample", 58, 6, 0x404040);
-	//		fontRenderer.drawString("�`��ݒ�", -18, 50, 0x404040);
-	////		fontRenderer.drawString("�`��ݒ�", 8, this.field_147000_g - 96 + 2, 0x404040);
-	//	}
-	//
-	//	private void drawGuiContainerBackgroundLayer(float var1, int var2, int var3)
-	//	{
-	//		Minecraft mc = this.field_146297_k;
-	//		int width = this.field_146294_l;
-	//		int height = field_146295_m;
-	//		int xSize = 229;
-	//		int ySize = 78;
-	//
-	//		/*int xSize = field_146999_f;*/
-	//		/*int ySize = field_147000_g;*/
-	//
-	//		//GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-	//
-	//		mc.renderEngine.bindTexture((new ResourceLocation("skipsignf", "textures/gui/background.png")));
-	//		xStart = width - xSize >> 1;
-	//		yStart = height - ySize >> 1;
-	//		//drawTexturedModalRect(xStart, yStart, 0, 0, xSize, ySize);
-	//	}
-	//
-	//    public void drawScreen(int par1, int par2, float par3)
-	//    {
-	//    	
-	//    }
 }

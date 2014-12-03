@@ -1,3 +1,51 @@
+# Builds & binaries
+build/
+run/
+bin/
+target/
+lib/
+invtweaks_docs/_build
+launcher/
+.gradle/
+*.zip
+*.jar
+*.class
+
+# Tmp files
+*~
+*#
+._*
+
+# IDEs
+.classpath
+.project
+.settings
+.pydevproject
+.idea/
+*.iml
+
+# MCP Files
+docs/
+conf/
+eclipse/
+jars/
+logs/
+runtime/
+temp/
+reobf/
+CHANGELOG
+LICENSE.txt
+*.bat
+*.sh
+
+# Misc
+*.rej
+
+# OSX
+.DS_Store
+.AppleDouble
+.LSOverride
+
 # Windows image file caches
 Thumbs.db
 ehthumbs.db
@@ -7,37 +55,3 @@ Desktop.ini
 
 # Recycle Bin used on file shares
 $RECYCLE.BIN/
-
-# Windows Installer files
-*.cab
-*.msi
-*.msm
-*.msp
-
-# =========================
-# Operating System Files
-# =========================
-
-# OSX
-# =========================
-
-.DS_Store
-.AppleDouble
-.LSOverride
-
-# Icon must end with two \r
-Icon
-
-# Thumbnails
-._*
-
-# Files that might appear on external disk
-.Spotlight-V100
-.Trashes
-
-# Directories potentially created on remote AFP share
-.AppleDB
-.AppleDesktop
-Network Trash Folder
-Temporary Items
-.apdisk

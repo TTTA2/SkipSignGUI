@@ -30,16 +30,16 @@ public class TileEntityChestRendererEx extends TileEntityChestRenderer
         super();
     }
 
-    public void renderTileEntityAt(TileEntity p_180535_1_, double posX, double posZ, double p_180535_6_, float p_180535_8_, int p_180535_9_)
+    public void renderTileEntityAt(TileEntity entity, double posX, double posZ, double p_180535_6_, float p_180535_8_, int p_180535_9_)
     {
-        this.func_180538_a((TileEntityChest)p_180535_1_, posX, posZ, p_180535_6_, p_180535_8_, p_180535_9_);
+        this.func_180538_a((TileEntityChest)entity, posX, posZ, p_180535_6_, p_180535_8_, p_180535_9_);
     }
 
     @Override
-    public void func_180538_a(TileEntityChest p_180538_1_, double p_180538_2_, double p_180538_4_, double p_180538_6_, float p_180538_8_, int p_180538_9_)
+    public void func_180538_a(TileEntityChest entity, double posX, double posZ, double p_180538_6_, float p_180538_8_, int p_180538_9_)
     {
-        if ((CheckVisibleState(p_180538_1_) && isDropOff(p_180538_1_, p_180538_2_, p_180538_4_,  p_180538_6_)) || ((TileEntityChest)p_180538_1_).getWorld() == null) {
-            super.func_180538_a(p_180538_1_, p_180538_2_, p_180538_4_, p_180538_6_, p_180538_8_, p_180538_9_);
+        if ((CheckVisibleState(entity) && isDropOff(entity, posX, posZ,  p_180538_6_)) || ((TileEntityChest)entity).getWorld() == null) {
+            super.func_180538_a(entity, posX, posZ, p_180538_6_, p_180538_8_, p_180538_9_);
         }
     }
 

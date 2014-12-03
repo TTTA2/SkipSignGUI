@@ -165,9 +165,4 @@ public class DrawableApi
 		d1 *= 64.0D * 1.0D;
 		return par1 < d1 * d1;
 	}
-
-	private static double func_110828_a(double par1, double par3, double par5)
-	{
-		return par1 + (par3 - par1) * par5;
-	}
 }

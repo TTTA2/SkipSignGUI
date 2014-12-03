@@ -11,27 +11,27 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 @SideOnly(Side.CLIENT)
 public class GuiOptionSliderEx extends GuiButton
 {
-	/** The value of this slider control. */
-	public float sliderValue = 1.0F;
-	
-	private float Hurihaba = 128;
+    /** The value of this slider control. */
+    public float sliderValue = 1.0F;
 
-	/** Is this slider control being dragged. */
-	public boolean dragging;
+    private float Hurihaba = 128;
 
-	public Key key;
-	
-	private String text;
+    /** Is this slider control being dragged. */
+    public boolean dragging;
 
-	public GuiOptionSliderEx(int par1, int par2, int par3, String par5Str, Key k, float h)
-	{
-		super(par1, par2, par3, 100, 20, par5Str);
-		this.key = k;
-		this.sliderValue = k.Float() / h;
-		text = par5Str;
-		this.displayString = String.format("%s:%dブロック", text, (int)(this.sliderValue * h));
-		this.Hurihaba = h;
-	}
+    public Key key;
+
+    private String text;
+
+    public GuiOptionSliderEx(int par1, int par2, int par3, String par5Str, Key k, float h)
+    {
+        super(par1, par2, par3, 100, 20, par5Str);
+        this.key = k;
+        this.sliderValue = k.Float() / h;
+        text = par5Str;
+        this.displayString = String.format("%s:%dブロック", text, (int)(this.sliderValue * h));
+        this.Hurihaba = h;
+    }
 
 	/**
 	 * Returns 0 if the button is disabled, 1 if the mouse is NOT hovering over this button and 2 if it IS hovering over
