@@ -23,21 +23,17 @@ import net.minecraft.tileentity.TileEntityChest;
 import net.minecraft.tileentity.TileEntitySign;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.config.Configuration;
-import net.minecraftforge.fml.common.FMLCommonHandler;
-import net.minecraftforge.fml.common.FMLLog;
-import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.common.Mod.EventHandler;
-import net.minecraftforge.fml.common.event.FMLInitializationEvent;
-import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import net.minecraftforge.fml.common.gameevent.TickEvent;
-import net.minecraftforge.fml.common.gameevent.TickEvent.RenderTickEvent;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
-
-import mods.SkipsignGUI.renderer.RenderItemFrameEx;
-import mods.SkipsignGUI.renderer.TileEntityChestRendererEx;
-import mods.SkipsignGUI.renderer.TileEntitySignRendererEx;
+import cpw.mods.fml.common.FMLCommonHandler;
+import cpw.mods.fml.common.FMLLog;
+import cpw.mods.fml.common.Mod;
+import cpw.mods.fml.common.Mod.EventHandler;
+import cpw.mods.fml.common.event.FMLInitializationEvent;
+import cpw.mods.fml.common.event.FMLPreInitializationEvent;
+import cpw.mods.fml.common.eventhandler.SubscribeEvent;
+import cpw.mods.fml.common.gameevent.TickEvent;
+import cpw.mods.fml.common.gameevent.TickEvent.RenderTickEvent;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 @Mod(modid = "SkipSign", version = "1.8-SNAPSHOT")
 public class SkipsignCore
@@ -91,20 +87,19 @@ public class SkipsignCore
     @EventHandler
     public void init(FMLInitializationEvent event)
     {
-        RenderManager renderManager = Minecraft.getMinecraft().getRenderManager();
-        RenderItem renderItem = Minecraft.getMinecraft().getRenderItem();
-
-        RenderItemFrameEx renderItemFrame = new RenderItemFrameEx(renderManager, renderItem);
+        RenderManager renderManager = RenderManager.instance;
+        
+        RenderItemFrameEx renderItemFrame = new RenderItemFrameEx();
         renderManager.entityRenderMap.remove(EntityItemFrame.class);
         renderManager.entityRenderMap.put(EntityItemFrame.class, renderItemFrame);
 
         TileEntitySignRendererEx signRenderer = new TileEntitySignRendererEx();
-        signRenderer.setRendererDispatcher(TileEntityRendererDispatcher.instance);
+        signRenderer.func_147497_a(TileEntityRendererDispatcher.instance);
         TileEntityRendererDispatcher.instance.mapSpecialRenderers.remove(TileEntitySign.class);
         TileEntityRendererDispatcher.instance.mapSpecialRenderers.put(TileEntitySign.class, signRenderer);
 
         TileEntityChestRendererEx chestRenderer = new TileEntityChestRendererEx();
-        chestRenderer.setRendererDispatcher(TileEntityRendererDispatcher.instance);
+        chestRenderer.func_147497_a(TileEntityRendererDispatcher.instance);
         TileEntityRendererDispatcher.instance.mapSpecialRenderers.remove(TileEntityChest.class);
         TileEntityRendererDispatcher.instance.mapSpecialRenderers.put(TileEntityChest.class, chestRenderer);
 

@@ -1,4 +1,4 @@
-package mods.SkipsignGUI.renderer;
+package mods.SkipsignGUI;
 
 import java.util.Iterator;
 import java.util.List;
@@ -11,13 +11,12 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityChest;
 import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.util.BlockPos;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 import mods.SkipsignGUI.SkipsignCore;
 import mods.SkipsignGUI.DrawableApi;
@@ -30,18 +29,18 @@ public class TileEntityChestRendererEx extends TileEntityChestRenderer
         super();
     }
 
-    public void renderTileEntityAt(TileEntity entity, double posX, double posZ, double p_180535_6_, float p_180535_8_, int p_180535_9_)
+    public void renderTileEntityAt(TileEntity entity, double posX, double posZ, double p_180535_6_, float p_180535_8_)
     {
-        this.func_180538_a((TileEntityChest)entity, posX, posZ, p_180535_6_, p_180535_8_, p_180535_9_);
+        this.renderTileEntityAt((TileEntityChest)entity, posX, posZ, p_180535_6_, p_180535_8_);
     }
 
     @Override
-    public void func_180538_a(TileEntityChest entity, double posX, double posZ, double p_180538_6_, float p_180538_8_, int p_180538_9_)
+    public void renderTileEntityAt(TileEntityChest entity, double posX, double posZ, double p_180538_6_, float p_180538_8_)
     {
-        if (Minecraft.getMinecraft().thePlayer == null || entity.getWorld() == null || 
+        if (Minecraft.getMinecraft().thePlayer == null || entity.getWorldObj() == null || 
             (isDropOff(entity, posX, posZ, p_180538_6_) && CheckVisibleState(entity)))
         {
-            super.func_180538_a(entity, posX, posZ, p_180538_6_, p_180538_8_, p_180538_9_);
+            super.renderTileEntityAt(entity, posX, posZ, p_180538_6_, p_180538_8_);
         }
     }
 
@@ -72,10 +71,9 @@ public class TileEntityChestRendererEx extends TileEntityChestRenderer
         EntityPlayer player = mc.thePlayer;
         int range = SkipsignCore.ModSetting.ChestRange.Int();
 
-        BlockPos pos = tileEntityChest.getPos();
-        int x = pos.getX();
-        int y = pos.getY();
-        int z = pos.getZ();
+        int x = tileEntityChest.xCoord;
+        int y = tileEntityChest.yCoord;
+        int z = tileEntityChest.zCoord;
 
         switch (SkipsignCore.ModSetting.CheckDist.Int())
         {

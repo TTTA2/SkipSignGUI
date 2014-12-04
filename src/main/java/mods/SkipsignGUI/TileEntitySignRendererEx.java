@@ -1,4 +1,4 @@
-package mods.SkipsignGUI.renderer;
+package mods.SkipsignGUI;
 
 import java.util.Iterator;
 import java.util.List;
@@ -11,15 +11,14 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntitySign;
 import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.util.BlockPos;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.IChatComponent;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 import mods.SkipsignGUI.SkipsignCore;
 import mods.SkipsignGUI.DrawableApi;
@@ -32,21 +31,21 @@ public class TileEntitySignRendererEx extends TileEntitySignRenderer
         super();
     }
 
-    public void renderTileEntityAt(TileEntity entity, double posX, double posZ, double p_180535_6_, float p_180535_8_, int p_180535_9_)
+    public void renderTileEntityAt(TileEntity entity, double posX, double posZ, double p_180535_6_, float p_180535_8_)
     {
-        this.func_180541_a((TileEntitySign)entity, posX, posZ, p_180535_6_, p_180535_8_, p_180535_9_);
+        this.renderTileEntityAt((TileEntitySign)entity, posX, posZ, p_180535_6_, p_180535_8_);
     }
 
     @Override
-    public void func_180541_a(TileEntitySign entity, double posX, double posZ, double p_180541_6_, float p_180541_8_, int p_180541_9_)
+    public void renderTileEntityAt(TileEntitySign entity, double posX, double posZ, double p_180541_6_, float p_180541_8_)
     {
         if (!isDropOff(entity, posX, posZ, p_180541_6_))
             return;
 
-        IChatComponent [] tempSignText = null;
+        String [] tempSignText = null;
         if (!CheckVisibleState(entity))
         {
-            tempSignText = new IChatComponent[entity.signText.length];
+            tempSignText = new String[entity.signText.length];
             for (int i = 0; i < entity.signText.length; i++)
             {
                 tempSignText[i] = entity.signText[i];
@@ -57,7 +56,7 @@ public class TileEntitySignRendererEx extends TileEntitySignRenderer
         if ((!SkipsignCore.ModSetting.HideBoard.Bool()) ||
             (SkipsignCore.ModSetting.HideBoard.Bool() && CheckVisibleState(entity)))
         {
-            super.func_180541_a(entity, posX, posZ, p_180541_6_, p_180541_8_, p_180541_9_);
+            super.renderTileEntityAt(entity, posX, posZ, p_180541_6_, p_180541_8_);
         }
 
         if (tempSignText != null)
@@ -95,10 +94,9 @@ public class TileEntitySignRendererEx extends TileEntitySignRenderer
         EntityPlayer player = mc.thePlayer;
         int range = SkipsignCore.ModSetting.SignRange.Int();
 
-        BlockPos pos = tileEntitySign.getPos();
-        int x = pos.getX();
-        int y = pos.getY();
-        int z = pos.getZ();
+        int x = tileEntitySign.xCoord;
+        int y = tileEntitySign.yCoord;
+        int z = tileEntitySign.zCoord;
 
         switch (SkipsignCore.ModSetting.CheckDist.Int())
         {

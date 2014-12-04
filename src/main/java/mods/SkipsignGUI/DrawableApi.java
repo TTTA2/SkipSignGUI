@@ -2,22 +2,21 @@ package mods.SkipsignGUI;
 
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.culling.Frustum;
+import net.minecraft.client.renderer.culling.Frustrum;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityChest;
 import net.minecraft.tileentity.TileEntitySign;
 import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
 
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 public class DrawableApi
 {
-    public static Frustum frustum = new Frustum();
+    public static Frustrum frustum = new Frustrum();
 
     public static double DX = 0, DY = 0, DZ = 0;
 
@@ -39,7 +38,7 @@ public class DrawableApi
     public static boolean isDraw(World w, int x, int y, int z)
     {
         Block chest = Block.getBlockFromName("chest");
-        AxisAlignedBB bb = chest.getCollisionBoundingBox(w, new BlockPos(x, y, z), chest.getDefaultState());
+        AxisAlignedBB bb = chest.getCollisionBoundingBoxFromPool(w, x, y, z);
         boolean ignoreFrustumCheck = false;
 
         return DrawableApi.isDraw1(w, x, y, z, DX, DY, DZ) && (ignoreFrustumCheck || frustum.isBoundingBoxInFrustum(bb));
@@ -48,7 +47,7 @@ public class DrawableApi
     public static boolean isDraw(TileEntityChest tileEntity, double x, double y, double z)
     {
         Block chest = Block.getBlockFromName("chest");
-        AxisAlignedBB bb = chest.getCollisionBoundingBox(tileEntity.getWorld(), tileEntity.getPos(), chest.getDefaultState());
+        AxisAlignedBB bb = chest.getCollisionBoundingBoxFromPool(tileEntity.getWorldObj(), tileEntity.xCoord, tileEntity.yCoord, tileEntity.zCoord);
         boolean ignoreFrustumCheck = false;
 
         return DrawableApi.isDraw1(tileEntity, DX, DY, DZ) && (ignoreFrustumCheck || frustum.isBoundingBoxInFrustum(bb));
@@ -57,7 +56,7 @@ public class DrawableApi
     public static boolean isDraw(TileEntitySign tileEntity, double x, double y, double z)
     {
         Block sign = Blocks.stone;
-        AxisAlignedBB bb = sign.getCollisionBoundingBox(tileEntity.getWorld(), tileEntity.getPos(), sign.getDefaultState());
+        AxisAlignedBB bb = sign.getCollisionBoundingBoxFromPool(tileEntity.getWorldObj(), tileEntity.xCoord, tileEntity.yCoord, tileEntity.zCoord);
         boolean ignoreFrustumCheck = false;
 
         return DrawableApi.isDraw1(tileEntity, DX, DY, DZ) && (ignoreFrustumCheck || frustum.isBoundingBoxInFrustum(bb));
@@ -76,9 +75,9 @@ public class DrawableApi
     @SideOnly(Side.CLIENT)
     public static boolean isDraw1(TileEntity chest, double dx, double dy, double dz)
     {
-        double d3 = (double)chest.getPos().getX() - dx;
-        double d4 = (double)chest.getPos().getY() - dy;
-        double d5 = (double)chest.getPos().getZ() - dz;
+        double d3 = (double)chest.xCoord - dx;
+        double d4 = (double)chest.yCoord - dy;
+        double d5 = (double)chest.zCoord - dz;
         double d6 = d3 * d3 + d4 * d4 + d5 * d5;
         return isInRangeToRenderDist(chest, d6);
     }
@@ -87,7 +86,7 @@ public class DrawableApi
     public static boolean isInRangeToRenderDist(World w, int x, int y, int z, double par1)
     {
         Block c = Block.getBlockFromName("chest");
-        AxisAlignedBB bb = c.getCollisionBoundingBox(w, new BlockPos(x, y, z), c.getDefaultState());
+        AxisAlignedBB bb = c.getCollisionBoundingBoxFromPool(w, x, y, z);
         double d1 = bb.getAverageEdgeLength();
         d1 *= 64.0D * 1.0D;
         return par1 < d1 * d1;
@@ -97,9 +96,10 @@ public class DrawableApi
     public static boolean isInRangeToRenderDist(TileEntity chest, double par1)
     {
         Block c = Block.getBlockFromName("chest");
-        AxisAlignedBB bb = c.getCollisionBoundingBox(chest.getWorld(),
-                                                     chest.getPos(),
-                                                     c.getDefaultState());
+        AxisAlignedBB bb = c.getCollisionBoundingBoxFromPool(chest.getWorldObj(),
+                                                             chest.xCoord,
+                                                             chest.yCoord,
+                                                             chest.zCoord);
         double d1 = bb.getAverageEdgeLength();
         d1 *= 64.0D * 1.0D;
         return par1 < d1 * d1;

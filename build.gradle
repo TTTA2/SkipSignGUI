@@ -17,13 +17,13 @@ buildscript {
 
 apply plugin: 'forge'
 
-version = "1.7.2-a"
+version = "1.7.2-b"
 group= "mods.SkipSignGUI" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = "SkipSignGUI"
 
 minecraft {
     version = "1.7.2-10.12.2.1121"
-    assetDir = "eclipse/assets"
+    runDir = "eclipse/assets"
 }
 
 processResources

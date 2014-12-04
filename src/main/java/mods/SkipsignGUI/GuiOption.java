@@ -4,9 +4,9 @@ import java.io.IOException;
 
 import org.apache.logging.log4j.Level;
 
-import net.minecraftforge.fml.common.FMLLog;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import cpw.mods.fml.common.FMLLog;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import net.java.games.input.Keyboard;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
@@ -267,7 +267,7 @@ public class GuiOption extends GuiScreen
     {
         try {
             super.keyTyped(par1, par2);
-        } catch(IOException e) {
+        } catch(Exception e) {
             FMLLog.log(Level.FATAL, "keyTyped: %s", e.toString());
         }
         

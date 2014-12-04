@@ -1,4 +1,4 @@
-package mods.SkipsignGUI.renderer;
+package mods.SkipsignGUI;
 
 import java.util.Iterator;
 import java.util.List;
@@ -17,17 +17,17 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 import mods.SkipsignGUI.SkipsignCore;
 
 @SideOnly(Side.CLIENT)
 public class RenderItemFrameEx extends RenderItemFrame
 {
-    public RenderItemFrameEx(RenderManager renderManager, RenderItem renderItem)
+    public RenderItemFrameEx()
     {
-        super(renderManager, renderItem);
+        super();
     }
 
     @Override
