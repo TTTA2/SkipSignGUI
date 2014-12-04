@@ -1,189 +1,131 @@
-package mods.SkipsignGUI;
+package mods.SkipsignGUI.renderer;
 
 import java.util.Iterator;
+import java.util.List;
+import org.lwjgl.input.Keyboard;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
-import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.FontRenderer;
-import net.minecraft.client.model.ModelSign;
-import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
+import net.minecraft.client.renderer.tileentity.TileEntitySignRenderer;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Blocks;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntitySign;
 import net.minecraft.util.AxisAlignedBB;
+import net.minecraft.util.BlockPos;
+import net.minecraft.util.ChatComponentText;
+import net.minecraft.util.IChatComponent;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 
-import org.lwjgl.input.Keyboard;
-import org.lwjgl.opengl.GL11;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
+
+import mods.SkipsignGUI.SkipsignCore;
+import mods.SkipsignGUI.DrawableApi;
 
 @SideOnly(Side.CLIENT)
-public class TileEntitySignRendererEx extends TileEntitySpecialRenderer
+public class TileEntitySignRendererEx extends TileEntitySignRenderer
 {
-	private static final ResourceLocation field_147513_b = new ResourceLocation("textures/entity/sign.png");
-	private final ModelSign field_147514_c = new ModelSign();
-	private static final String __OBFID = "CL_00000970";
+    public TileEntitySignRendererEx()
+    {
+        super();
+    }
 
-	public boolean CheckVisibleState(TileEntitySign tileEntitySign)
-	{
-		switch (SkipsignCore.ModSetting.SignVisible.Int())
-		{
-		case 1:
-			return true;
-		case 2:
-			return false;
-		}
+    public void renderTileEntityAt(TileEntity entity, double posX, double posZ, double p_180535_6_, float p_180535_8_, int p_180535_9_)
+    {
+        this.func_180541_a((TileEntitySign)entity, posX, posZ, p_180535_6_, p_180535_8_, p_180535_9_);
+    }
 
-		if (Keyboard.isKeyDown(SkipsignCore.ModSetting.Zoom_Key.Int())) return true;
+    @Override
+    public void func_180541_a(TileEntitySign entity, double posX, double posZ, double p_180541_6_, float p_180541_8_, int p_180541_9_)
+    {
+        if (!isDropOff(entity, posX, posZ, p_180541_6_))
+            return;
 
-		Minecraft mc = Minecraft.getMinecraft();
+        IChatComponent [] tempSignText = null;
+        if (!CheckVisibleState(entity))
+        {
+            tempSignText = new IChatComponent[entity.signText.length];
+            for (int i = 0; i < entity.signText.length; i++)
+            {
+                tempSignText[i] = entity.signText[i];
+                entity.signText[i] = null;
+            }
+        }
 
-		World w = mc.theWorld;
-		EntityPlayer p = mc.thePlayer;
+        if ((!SkipsignCore.ModSetting.HideBoard.Bool()) ||
+            (SkipsignCore.ModSetting.HideBoard.Bool() && CheckVisibleState(entity)))
+        {
+            super.func_180541_a(entity, posX, posZ, p_180541_6_, p_180541_8_, p_180541_9_);
+        }
 
-		int range = SkipsignCore.ModSetting.SignRange.Int();
+        if (tempSignText != null)
+        {
+            for (int i = 0; i < entity.signText.length; i++)
+            {
+                entity.signText[i] = tempSignText[i];
+            }
+        }
+    }
 
-		int x = tileEntitySign.xCoord, y = tileEntitySign.yCoord, z = tileEntitySign.zCoord;
+    public boolean isDropOff(TileEntity tile, double x, double y, double z)
+    {
+        if (SkipsignCore.ModSetting.DropOffSign.Int() == 1)
+        {
+            return DrawableApi.isDraw((TileEntitySign)tile, x, y,  z);
+        }
+        return true;
+    }
 
-		switch (SkipsignCore.ModSetting.CheckDist.Int())
-		{
-		case 0:
+    public boolean CheckVisibleState(TileEntitySign tileEntitySign)
+    {
+        switch (SkipsignCore.ModSetting.SignVisible.Int())
+        {
+        case 1:
+            return true;
+        case 2:
+            return false;
+        }
 
-			int rad = SkipsignCore.ModSetting.SignRange.Int();
+        if (Keyboard.isKeyDown(SkipsignCore.ModSetting.Zoom_Key.Int())) return true;
 
-			for (Iterator iterator = w.getEntitiesWithinAABB(EntityPlayer.class, AxisAlignedBB.getBoundingBox(x - rad, y - rad, z - rad, x + (rad + 1), y + (rad + 1), z + (rad + 1))).iterator(); iterator.hasNext();)
-			{
-				Entity entity = (Entity)iterator.next();
-				EntityPlayer player = (EntityPlayer)entity;
+        Minecraft mc = Minecraft.getMinecraft();
+        World world = mc.theWorld;
+        EntityPlayer player = mc.thePlayer;
+        int range = SkipsignCore.ModSetting.SignRange.Int();
 
-				if (player.getDisplayName().equals(p.getDisplayName()))
-				{
-					return true;
-				}
-			}
+        BlockPos pos = tileEntitySign.getPos();
+        int x = pos.getX();
+        int y = pos.getY();
+        int z = pos.getZ();
 
-		case 1:
+        switch (SkipsignCore.ModSetting.CheckDist.Int())
+        {
+        case 0:
+            // ** VERY SLOW ** in Forge 1.8
+            /* 
+            AxisAlignedBB aabb = AxisAlignedBB.fromBounds(x - range, y - range, z - range, x + (range + 1), y + (range + 1), z + (range + 1));
+            for (Iterator iterator = world.getEntitiesWithinAABB(EntityPlayer.class, aabb).iterator(); iterator.hasNext();)
+            {
+                Entity entity = (Entity)iterator.next();
+                EntityPlayer entityPlayer = (EntityPlayer)entity;
 
-			double dist = getDistance((double)x, (double)y, (double)z, p.posX, p.posY, p.posZ);
+                if (entityPlayer.getDisplayName().equals(player.getDisplayName()))
+                {
+                    return false;
+                }
+            }
+            break;
+            */
+        case 1:
+            double dist = player.getDistance((double)x, (double)y, (double)z);
 
-			if (dist < SkipsignCore.ModSetting.SignRange.Int() + 1 && dist > (-SkipsignCore.ModSetting.SignRange.Int()))
-			{
-				return true;
-			}
-		}
-
-		return false;
-	}
-
-	public void func_147500_a(TileEntitySign p_147512_1_, double p_147512_2_, double p_147512_4_, double p_147512_6_, float p_147512_8_)
-	{
-		Block block = p_147512_1_.getBlockType();
-		GL11.glPushMatrix();
-		float f1 = 0.6666667F;
-		float f3;
-
-		if (block == Blocks.standing_sign)
-		{
-			GL11.glTranslatef((float)p_147512_2_ + 0.5F, (float)p_147512_4_ + 0.75F * f1, (float)p_147512_6_ + 0.5F);
-			float f2 = (float)(p_147512_1_.getBlockMetadata() * 360) / 16.0F;
-			GL11.glRotatef(-f2, 0.0F, 1.0F, 0.0F);
-			this.field_147514_c.signStick.showModel = true;
-		}
-		else
-		{
-			int j = p_147512_1_.getBlockMetadata();
-			f3 = 0.0F;
-
-			if (j == 2)
-			{
-				f3 = 180.0F;
-			}
-
-			if (j == 4)
-			{
-				f3 = 90.0F;
-			}
-
-			if (j == 5)
-			{
-				f3 = -90.0F;
-			}
-
-			GL11.glTranslatef((float)p_147512_2_ + 0.5F, (float)p_147512_4_ + 0.75F * f1, (float)p_147512_6_ + 0.5F);
-			GL11.glRotatef(-f3, 0.0F, 1.0F, 0.0F);
-			GL11.glTranslatef(0.0F, -0.3125F, -0.4375F);
-			this.field_147514_c.signStick.showModel = false;
-		}
-
-		this.bindTexture(field_147513_b);
-		GL11.glPushMatrix();
-		GL11.glScalef(f1, -f1, -f1);
-
-		if ((!SkipsignCore.ModSetting.HideBoard.Bool()) || (SkipsignCore.ModSetting.HideBoard.Bool() && CheckVisibleState(p_147512_1_)))
-		{
-			this.field_147514_c.renderSign();
-		}
-
-		GL11.glPopMatrix();
-		FontRenderer fontrenderer = this.func_147498_b();
-		f3 = 0.016666668F * f1;
-		GL11.glTranslatef(0.0F, 0.5F * f1, 0.07F * f1);
-		GL11.glScalef(f3, -f3, f3);
-		GL11.glNormal3f(0.0F, 0.0F, -1.0F * f3);
-		GL11.glDepthMask(false);
-		byte b0 = 0;
-
-		for (int i = 0; i < p_147512_1_.signText.length; ++i)
-		{
-			String s = p_147512_1_.signText[i];
-
-			if (i == p_147512_1_.lineBeingEdited)
-			{
-				s = "> " + s + " <";
-				fontrenderer.drawString(s, -fontrenderer.getStringWidth(s) / 2, i * 10 - p_147512_1_.signText.length * 5, b0);
-			}
-			else
-			{
-				if (CheckVisibleState(p_147512_1_))
-				{
-					fontrenderer.drawString(s, -fontrenderer.getStringWidth(s) / 2, i * 10 - p_147512_1_.signText.length * 5, b0);
-				}
-			}
-		}
-
-		GL11.glDepthMask(true);
-		GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-		GL11.glPopMatrix();
-	}
-
-	public void renderTileEntityAt(TileEntity p_147500_1_, double p_147500_2_, double p_147500_4_, double p_147500_6_, float p_147500_8_)
-	{
-		if (isDropOff(p_147500_1_, p_147500_2_, p_147500_4_, p_147500_6_))
-		{
-			this.func_147500_a((TileEntitySign)p_147500_1_, p_147500_2_, p_147500_4_, p_147500_6_, p_147500_8_);
-		}
-	}
-	
-	public boolean isDropOff(TileEntity tile, double x, double y, double z)
-	{
-		if (SkipsignCore.ModSetting.DropOffSign.Int() == 1)
-		{
-			return DrawbleApi.isDraw((TileEntitySign)tile, x, y,  z);
-		}
-		
-		return true;
-	}
-
-	public double getDistance(double par1, double par3, double par5, double par7, double par9, double par11)
-	{
-		double d3 = par7 - par1;
-		double d4 = par9 - par3;
-		double d5 = par11 - par5;
-		return (double)MathHelper.sqrt_double(d3 * d3 + d4 * d4 + d5 * d5);
-	}
+            if (dist < range + 1 && dist > -range)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
 }
