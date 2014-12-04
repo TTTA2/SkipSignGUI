@@ -22,7 +22,7 @@ group= "mods.SkipSignGUI" // http://maven.apache.org/guides/mini/guide-naming-co
 archivesBaseName = "SkipSignGUI"
 
 minecraft {
-    version = "1.8-11.14.0.1249-1.8"
+    version = "1.8-11.14.0.1251-1.8"
     runDir = "eclipse/assets"
 }
 
