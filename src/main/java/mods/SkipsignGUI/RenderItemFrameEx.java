@@ -39,24 +39,23 @@ public class RenderItemFrameEx extends RenderItemFrame
     @Override
     public void doRender(EntityItemFrame entity, double x, double y, double z, float p_76986_8_, float partialTicks)
     {
-        EntityItemFrame entityItemFrame = (EntityItemFrame) entity;
         ItemStack frameItemStack = null;
 
-        if (!CheckVisibleState(entityItemFrame))
+        if (!CheckVisibleState(entity))
         {
-            frameItemStack = entityItemFrame.getDisplayedItem();
-            entityItemFrame.setDisplayedItem(null);
+            frameItemStack = entity.getDisplayedItem();
+            entity.setDisplayedItem(null);
         }
 
         if ((!SkipsignCore.ModSetting.HideBoard.Bool()) ||
-            (SkipsignCore.ModSetting.HideBoard.Bool() && CheckVisibleState(entityItemFrame)))
+            (SkipsignCore.ModSetting.HideBoard.Bool() && CheckVisibleState(entity)))
         {
             super.doRender(entity, x, y, z, p_76986_8_, partialTicks);
         }
 
         if (frameItemStack != null)
         {
-            entityItemFrame.setDisplayedItem(frameItemStack);
+            entity.setDisplayedItem(frameItemStack);
         }
     }
 
