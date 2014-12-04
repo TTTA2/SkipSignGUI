@@ -8,6 +8,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityChest;
 import net.minecraft.tileentity.TileEntitySign;
+import net.minecraft.tileentity.TileEntitySkull;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.world.World;
 
@@ -54,6 +55,15 @@ public class DrawableApi
     }
 
     public static boolean isDraw(TileEntitySign tileEntity, double x, double y, double z)
+    {
+        Block sign = Blocks.stone;
+        AxisAlignedBB bb = sign.getCollisionBoundingBoxFromPool(tileEntity.getWorldObj(), tileEntity.xCoord, tileEntity.yCoord, tileEntity.zCoord);
+        boolean ignoreFrustumCheck = false;
+
+        return DrawableApi.isDraw1(tileEntity, DX, DY, DZ) && (ignoreFrustumCheck || frustum.isBoundingBoxInFrustum(bb));
+    }
+
+    public static boolean isDraw(TileEntitySkull tileEntity, double x, double y, double z)
     {
         Block sign = Blocks.stone;
         AxisAlignedBB bb = sign.getCollisionBoundingBoxFromPool(tileEntity.getWorldObj(), tileEntity.xCoord, tileEntity.yCoord, tileEntity.zCoord);

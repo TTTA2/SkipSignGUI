@@ -21,6 +21,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityChest;
 import net.minecraft.tileentity.TileEntitySign;
+import net.minecraft.tileentity.TileEntitySkull;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.config.Configuration;
 import cpw.mods.fml.common.FMLCommonHandler;
@@ -60,13 +61,16 @@ public class SkipsignCore
             ModSetting.SignVisible.Value(cfg.get("Setting", ModSetting.SignVisible.CfgName, 0).getInt());
             ModSetting.FrameVisible.Value(cfg.get("Setting",ModSetting.FrameVisible.CfgName, 0).getInt());
             ModSetting.ChestVisible.Value(cfg.get("Setting", ModSetting.ChestVisible.CfgName, 0).getInt());
+            ModSetting.SkullVisible.Value(cfg.get("Setting", ModSetting.SkullVisible.CfgName, 0).getInt());
 
             ModSetting.SignRange.Value(cfg.get("Setting", ModSetting.SignRange.CfgName, 20).getInt());
             ModSetting.FrameRange.Value(cfg.get("Setting",ModSetting.FrameRange.CfgName, 20).getInt());
             ModSetting.ChestRange.Value(cfg.get("Setting", ModSetting.ChestRange.CfgName, 128).getInt());
+            ModSetting.SkullRange.Value(cfg.get("Setting", ModSetting.SkullRange.CfgName, 128).getInt());
 
             ModSetting.DropOffSign.Value(cfg.get("Setting", ModSetting.DropOffSign.CfgName, 1).getInt());
             ModSetting.DropOffChest.Value(cfg.get("Setting",ModSetting.DropOffChest.CfgName, 1).getInt());
+            ModSetting.DropOffSkull.Value(cfg.get("Setting",ModSetting.DropOffSkull.CfgName, 1).getInt());
 
             ModSetting.Zoom_Key.Value(cfg.get("Setting", ModSetting.Zoom_Key.CfgName, 29).getInt());
             ModSetting.CheckDist.Value(cfg.get("Setting", ModSetting.CheckDist.CfgName, 1).getInt());
@@ -103,6 +107,11 @@ public class SkipsignCore
         chestRenderer.func_147497_a(TileEntityRendererDispatcher.instance);
         TileEntityRendererDispatcher.instance.mapSpecialRenderers.remove(TileEntityChest.class);
         TileEntityRendererDispatcher.instance.mapSpecialRenderers.put(TileEntityChest.class, chestRenderer);
+
+        TileEntitySkullRendererEx skullRenderer = new TileEntitySkullRendererEx();
+        skullRenderer.func_147497_a(TileEntityRendererDispatcher.instance);
+        TileEntityRendererDispatcher.instance.mapSpecialRenderers.remove(TileEntitySkull.class);
+        TileEntityRendererDispatcher.instance.mapSpecialRenderers.put(TileEntitySkull.class, skullRenderer);
 
         MinecraftForge.EVENT_BUS.register(this);
         FMLCommonHandler.instance().bus().register(this);
@@ -172,14 +181,17 @@ public class SkipsignCore
             str = str.replaceAll(ModSetting.SignRange.OldCfg(), ModSetting.SignRange.Cfg());
             str = str.replaceAll(ModSetting.FrameRange.OldCfg(), ModSetting.FrameRange.Cfg());
             str = str.replaceAll(ModSetting.ChestRange.OldCfg(), ModSetting.ChestRange.Cfg());
+            str = str.replaceAll(ModSetting.SkullRange.OldCfg(), ModSetting.SkullRange.Cfg());
             str = str.replaceAll(ModSetting.Zoom_Key.OldCfg(), ModSetting.Zoom_Key.Cfg());
             str = str.replaceAll(ModSetting.CheckDist.OldCfg(), ModSetting.CheckDist.Cfg());
             str = str.replaceAll(ModSetting.HideBoard.OldCfg(), ModSetting.HideBoard.Cfg());
             str = str.replaceAll(ModSetting.SignVisible.OldCfg(), ModSetting.SignVisible.Cfg());
             str = str.replaceAll(ModSetting.FrameVisible.OldCfg(), ModSetting.FrameVisible.Cfg());
             str = str.replaceAll(ModSetting.ChestVisible.OldCfg(), ModSetting.ChestVisible.Cfg());
+            str = str.replaceAll(ModSetting.SkullVisible.OldCfg(), ModSetting.SkullVisible.Cfg());
             str = str.replaceAll(ModSetting.DropOffSign.OldCfg(), ModSetting.DropOffSign.Cfg());
             str = str.replaceAll(ModSetting.DropOffChest.OldCfg(), ModSetting.DropOffChest.Cfg());
+            str = str.replaceAll(ModSetting.DropOffSkull.OldCfg(), ModSetting.DropOffSkull.Cfg());
 
             BufferedWriter bw = new BufferedWriter(new FileWriter(file));
             bw.write(str);

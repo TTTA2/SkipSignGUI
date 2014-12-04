@@ -35,16 +35,17 @@ public class GuiOption extends GuiScreen
 
         this.drawString(fontRenderer, "環境設定", x - 172, y - 90, 16777215);
         
-        this.drawString(fontRenderer, "看板", x - 172, y - 75       + 5, 16777215);
+        this.drawString(fontRenderer, "看板", x - 172, y - 75 + 5, 16777215);
         this.drawString(fontRenderer, "フレーム", x - 172, y - 50 + 5, 16777215);
         this.drawString(fontRenderer, "チェスト", x - 172, y - 25 + 5, 16777215);
+        this.drawString(fontRenderer, "ヘッド", x - 172, y + 5, 16777215);
         
         super.drawScreen(par1, par2, par3);
     }
 
     private GuiButton drawMode, ShowBoard, ChangeKey, ChangeMode, ZoomKey, ScrGui;
-    private GuiButton ApplySign, ApplyItemFrame, ApplyChest;
-    private GuiButton SignDO, ChestDO;
+    private GuiButton ApplySign, ApplyItemFrame, ApplyChest, ApplySkull;
+    private GuiButton SignDO, ChestDO, SkullDO;
     private boolean KeyChange_OpenSetting = false;
     private boolean KeyChange_ZoomKey = false;
 
@@ -59,6 +60,7 @@ public class GuiOption extends GuiScreen
         
         SignDO = new GuiButton(0, x + 65, y - 75, 120, 20, "範囲外を描画しない");
         ChestDO = new GuiButton(0, x + 65, y - 25, 120, 20, "範囲外を描画しない");
+        SkullDO = new GuiButton(0, x + 65, y , 120, 20, "範囲外を描画しない");
         
         ScrGui = new GuiButton(0, x - 172, y - 5, 195, 20, "画面外のチェスト・看板を非表示"); 
 
@@ -67,20 +69,22 @@ public class GuiOption extends GuiScreen
         ApplySign = new GuiButton(0, x - 120, y - 75, 75, 20, "範囲描画");
         ApplyItemFrame = new GuiButton(0, x - 120, y - 50, 75, 20, "範囲描画");
         ApplyChest = new GuiButton(0, x - 120, y - 25, 75, 20, "範囲描画");
+        ApplySkull = new GuiButton(0, x - 120, y , 75, 20, "範囲描画");
         
         GuiOptionSliderEx Srange = new GuiOptionSliderEx(5, x - 40, y - 75, "描画範囲", SkipsignCore.ModSetting.SignRange, (float)SkipsignCore.ModSetting.Hurihaba);
         GuiOptionSliderEx Frange = new GuiOptionSliderEx(5, x - 40, y - 50, "描画範囲", SkipsignCore.ModSetting.FrameRange, (float)SkipsignCore.ModSetting.Hurihaba);
         GuiOptionSliderEx Crange = new GuiOptionSliderEx(5, x - 40, y - 25, "描画範囲", SkipsignCore.ModSetting.ChestRange, (float)SkipsignCore.ModSetting.Hurihaba);
+        GuiOptionSliderEx SKrange = new GuiOptionSliderEx(5, x - 40, y, "描画範囲", SkipsignCore.ModSetting.SkullRange, (float)SkipsignCore.ModSetting.Hurihaba);
         
         //AllDraw = new GuiButton(1, x - 107, y - 75, 60, 20, "すべて描画");
         //SkipDraw = new GuiButton(2, x - 42, y - 75, 60, 20, "描画しない");
 
-        ChangeKey = new GuiButton(3, x - 77, y + 20, 100, 20, String.format("設定画面:%s", org.lwjgl.input.Keyboard.getKeyName((SkipsignCore.ModSetting.VisibleKey.Int()))));
-        ShowBoard = new GuiButton(4, x - 172, y + 20, 90, 20, "本体を表示");
+        ChangeKey = new GuiButton(3, x - 77, y + 45, 100, 20, String.format("設定画面:%s", org.lwjgl.input.Keyboard.getKeyName((SkipsignCore.ModSetting.VisibleKey.Int()))));
+        ShowBoard = new GuiButton(4, x - 172, y + 45, 90, 20, "本体を表示");
 
-        ChangeMode = new GuiButton(6, x - 172, y + 45, 90, 20, "距離算出式:0");
+        ChangeMode = new GuiButton(6, x - 172, y + 70, 90, 20, "距離算出式:0");
 
-        ZoomKey = new GuiButton(7, x - 77, y + 45, 100, 20, String.format("一時解除:%s", org.lwjgl.input.Keyboard.getKeyName(SkipsignCore.ModSetting.VisibleKey.Int())));
+        ZoomKey = new GuiButton(7, x - 77, y + 70, 100, 20, String.format("一時解除:%s", org.lwjgl.input.Keyboard.getKeyName(SkipsignCore.ModSetting.VisibleKey.Int())));
 
 
         Invalidate();
@@ -88,13 +92,16 @@ public class GuiOption extends GuiScreen
         this.buttonList.add(ApplySign);
         this.buttonList.add(ApplyItemFrame);
         this.buttonList.add(ApplyChest);
+        this.buttonList.add(ApplySkull);
         
         this.buttonList.add(Srange);
         this.buttonList.add(Frange);
         this.buttonList.add(Crange);
+        this.buttonList.add(SKrange);
         
         this.buttonList.add(SignDO);
         this.buttonList.add(ChestDO);
+        this.buttonList.add(SkullDO);
         
         this.buttonList.add(ChangeKey);
         this.buttonList.add(ShowBoard);
@@ -130,6 +137,13 @@ public class GuiOption extends GuiScreen
             SkipsignCore.ModSetting.ChestVisible.Value = vis;
         }
         
+        if (ApplySkull == p_146284_1_)
+        {
+            int vis = SkipsignCore.ModSetting.SkullVisible.Int();
+            vis++; if (vis > 2) vis = 0;
+            SkipsignCore.ModSetting.SkullVisible.Value = vis;
+        }
+        
         if (SignDO == p_146284_1_)
         {
             int vis = SkipsignCore.ModSetting.DropOffSign.Int();
@@ -142,6 +156,13 @@ public class GuiOption extends GuiScreen
             int vis = SkipsignCore.ModSetting.DropOffChest.Int();
             vis++; if (vis > 1) vis = 0;
             SkipsignCore.ModSetting.DropOffChest.Value = vis;
+        }
+        
+        if (SkullDO == p_146284_1_)
+        {
+            int vis = SkipsignCore.ModSetting.DropOffSkull.Int();
+            vis++; if (vis > 1) vis = 0;
+            SkipsignCore.ModSetting.DropOffSkull.Value = vis;
         }
         
         if (p_146284_1_.id == 4)
@@ -208,6 +229,19 @@ public class GuiOption extends GuiScreen
             break;
         }
         
+        switch (SkipsignCore.ModSetting.SkullVisible.Int())
+        {
+        case 0:
+            ApplySkull.displayString = "範囲描画";
+            break;
+        case 1:
+            ApplySkull.displayString = "すべて描画";
+            break;
+        case 2:
+            ApplySkull.displayString = "描画しない";
+            break;
+        }
+        
         switch (SkipsignCore.ModSetting.DropOffSign.Int())
         {
         case 0:
@@ -225,6 +259,16 @@ public class GuiOption extends GuiScreen
             break;
         case 1:
             ChestDO.displayString = "範囲外を描画しない";
+            break;
+        }
+
+        switch (SkipsignCore.ModSetting.DropOffSkull.Int())
+        {
+        case 0:
+            SkullDO.displayString = "範囲外を描画する";
+            break;
+        case 1:
+            SkullDO.displayString = "範囲外を描画しない";
             break;
         }
 
