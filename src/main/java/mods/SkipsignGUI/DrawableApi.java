@@ -32,7 +32,7 @@ public class DrawableApi
 
         frustum.setPosition(DX, DY, DZ);
 
-        // Minecraft.getMinecraft().renderGlobal.clipRenderersByFrustum(frustum, f);
+        Minecraft.getMinecraft().renderGlobal.clipRenderersByFrustum(frustum, f);
     }
 
     public static boolean isDraw(World w, int x, int y, int z)

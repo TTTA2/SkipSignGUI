@@ -90,6 +90,7 @@ public class SkipsignCore
         RenderManager renderManager = RenderManager.instance;
         
         RenderItemFrameEx renderItemFrame = new RenderItemFrameEx();
+        renderItemFrame.setRenderManager(RenderManager.instance);
         renderManager.entityRenderMap.remove(EntityItemFrame.class);
         renderManager.entityRenderMap.put(EntityItemFrame.class, renderItemFrame);
 
