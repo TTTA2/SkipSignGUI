@@ -24,16 +24,17 @@ public class Setting
         SignVisible = new Key(0, "SignVisble", "I");
         FrameVisible = new Key(0, "FrameVisble", "I");
         ChestVisible = new Key(0, "ChestVisble", "I");
-        SignRange = new Key(5, "SignDrawRange", "I");
-        FrameRange = new Key(5, "FrameDrawRange", "I");
-        ChestRange = new Key(5, "ChestDrawRange", "I");
-        Zoom_Key = new Key(29, "ZoomKey", "I");
-        CheckDist = new Key(0, "CheckDist", "I");
-        HideBoard = new Key(false, "HideBackground", "B");
-        
+        SignRange = new Key(20, "SignDrawRange", "I");
+        FrameRange = new Key(20, "FrameDrawRange", "I");
+        ChestRange = new Key(128, "ChestDrawRange", "I");
+
         DropOffSign = new Key(1, "DropOffSign", "I");
         DropOffChest = new Key(1, "DropOffChest", "I");
+
+        Zoom_Key = new Key(29, "ZoomKey", "I");
+        CheckDist = new Key(1, "CheckDist", "I");
+        HideBoard = new Key(false, "HideBackground", "B");
     }
-    
+
     public static String CfgPath = "";
 }
