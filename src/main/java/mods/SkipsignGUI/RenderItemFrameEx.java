@@ -1,4 +1,4 @@
-package mods.SkipsignGUI.renderer;
+package mods.SkipsignGUI;
 
 import java.util.Iterator;
 import java.util.List;

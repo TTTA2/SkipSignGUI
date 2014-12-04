@@ -35,10 +35,6 @@ import net.minecraftforge.fml.common.gameevent.TickEvent.RenderTickEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-import mods.SkipsignGUI.renderer.RenderItemFrameEx;
-import mods.SkipsignGUI.renderer.TileEntityChestRendererEx;
-import mods.SkipsignGUI.renderer.TileEntitySignRendererEx;
-
 @Mod(modid = "SkipSign", version = "1.8-SNAPSHOT")
 public class SkipsignCore
 {
