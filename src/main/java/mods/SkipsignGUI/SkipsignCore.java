@@ -36,7 +36,7 @@ import cpw.mods.fml.common.gameevent.TickEvent.RenderTickEvent;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-@Mod(modid = "SkipSign", version = "1.8-SNAPSHOT")
+@Mod(modid = "SkipSign", version = "1.7.2-b")
 public class SkipsignCore
 {
     private boolean key_down = false;
