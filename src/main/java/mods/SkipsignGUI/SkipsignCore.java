@@ -36,7 +36,7 @@ import net.minecraftforge.fml.common.gameevent.TickEvent.RenderTickEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-@Mod(modid = "SkipSign", version = "1.8-SNAPSHOT")
+@Mod(modid = "skipsigngui", version = "@VERSION@")
 public class SkipsignCore
 {
     private boolean key_down = false;
