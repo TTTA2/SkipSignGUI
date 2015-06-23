@@ -19,10 +19,10 @@ apply plugin: 'forge'
 
 group= "mods.SkipSignGUI" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = "SkipSignGUI"
-version = "1.8-a"
+version = "1.8-b"
 
 minecraft {
-    version = "1.8-11.14.0.1251-1.8"
+    version = "1.8-11.14.3.1450"
     runDir = "eclipse/assets"
 
     replace "@VERSION@", project.version
