@@ -26,7 +26,7 @@ minecraft {
     runDir = "eclipse/assets"
 
     replace "@VERSION@", project.version
-    replaceIn "SkipSignGUI.java"
+    replaceIn "SkipSignCore.java"
 }
 
 processResources
