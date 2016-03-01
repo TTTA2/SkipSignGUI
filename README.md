@@ -1,15 +1,14 @@
 SkipSign
 ========
 
-SkipSign - To reduce the rendering load by hiding Sign/ItemFrame/Chest in 
+SkipSign - To reduce the rendering load by hiding Sign / ItemFrame / Chest in
 the distance.
 
-## Getting the source
-Use git command to clone the project:
+## Getting the source ##
 
-  git clone git://github.com/TTTA2/SkipSignGUI.git
+[GitHub](https://github.com/TTTA2/SkipSignGUI.git)
 
-## Getting JAR
-Download the [latest jar][Download]
+## Getting JAR ##
 
-[Download]: http://goo.gl/EOVmmv
+-   [for Forge 1.8](http://bit.ly/1QoO56G)
+-   [for Forge 1.7](http://bit.ly/1RhPIml)
