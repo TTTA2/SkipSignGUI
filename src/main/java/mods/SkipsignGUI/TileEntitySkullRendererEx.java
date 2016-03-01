@@ -30,18 +30,13 @@ public class TileEntitySkullRendererEx extends TileEntitySkullRenderer
         super();
     }
 
-    public void renderTileEntityAt(TileEntity entity, double posX, double posZ, double p_180535_6_, float p_180535_8_, int p_180535_9_)
-    {
-        this.func_180542_a((TileEntitySkull)entity, posX, posZ, p_180535_6_, p_180535_8_, p_180535_9_);
-    }
-
     @Override
-    public void func_180542_a(TileEntitySkull entity, double posX, double posZ, double p_180542_6_, float p_180542_8_, int p_180542_9_)
+    public void renderTileEntityAt(TileEntitySkull entity, double x, double y, double z, float partialTicks, int destroyStage)
     {
-        if (Minecraft.getMinecraft().thePlayer == null || entity.getWorld() == null || 
-            (isDropOff(entity, posX, posZ, p_180542_6_) && CheckVisibleState(entity)))
+        if (Minecraft.getMinecraft().thePlayer == null || entity.getWorld() == null ||
+            (isDropOff(entity, x, y, z) && CheckVisibleState(entity)))
         {
-            super.func_180542_a(entity, posX, posZ, p_180542_6_, p_180542_8_, p_180542_9_);
+            super.renderTileEntityAt(entity, x, y, z, partialTicks, destroyStage);
         }
     }
 
@@ -51,7 +46,7 @@ public class TileEntitySkullRendererEx extends TileEntitySkullRenderer
         {
             return DrawableApi.isDraw((TileEntitySkull)tile, x, y,  z);
         }
-        
+
         return true;
     }
 

@@ -30,18 +30,13 @@ public class TileEntityChestRendererEx extends TileEntityChestRenderer
         super();
     }
 
-    public void renderTileEntityAt(TileEntity entity, double posX, double posZ, double p_180535_6_, float p_180535_8_, int p_180535_9_)
-    {
-        this.func_180538_a((TileEntityChest)entity, posX, posZ, p_180535_6_, p_180535_8_, p_180535_9_);
-    }
-
     @Override
-    public void func_180538_a(TileEntityChest entity, double posX, double posZ, double p_180538_6_, float p_180538_8_, int p_180538_9_)
+    public void renderTileEntityAt(TileEntityChest entity, double x, double y, double z, float partialTicks, int destroyStage)
     {
-        if (Minecraft.getMinecraft().thePlayer == null || entity.getWorld() == null || 
-            (isDropOff(entity, posX, posZ, p_180538_6_) && CheckVisibleState(entity)))
+        if (Minecraft.getMinecraft().thePlayer == null || entity.getWorld() == null ||
+            (isDropOff(entity, x, y, z) && CheckVisibleState(entity)))
         {
-            super.func_180538_a(entity, posX, posZ, p_180538_6_, p_180538_8_, p_180538_9_);
+            super.renderTileEntityAt(entity, x, y, z, partialTicks, destroyStage);
         }
     }
 
@@ -51,7 +46,7 @@ public class TileEntityChestRendererEx extends TileEntityChestRenderer
         {
             return DrawableApi.isDraw((TileEntityChest)tile, x, y,  z);
         }
-        
+
         return true;
     }
 
@@ -81,7 +76,7 @@ public class TileEntityChestRendererEx extends TileEntityChestRenderer
         {
         case 0:
             // ** VERY SLOW ** in Forge 1.8
-            /* 
+            /*
             AxisAlignedBB aabb = AxisAlignedBB.fromBounds(x - range, y - range, z - range, x + (range + 1), y + (range + 1), z + (range + 1));
             for (Iterator iterator = world.getEntitiesWithinAABB(EntityPlayer.class, aabb).iterator(); iterator.hasNext();)
             {

@@ -32,15 +32,10 @@ public class TileEntitySignRendererEx extends TileEntitySignRenderer
         super();
     }
 
-    public void renderTileEntityAt(TileEntity entity, double posX, double posZ, double p_180535_6_, float p_180535_8_, int p_180535_9_)
-    {
-        this.func_180541_a((TileEntitySign)entity, posX, posZ, p_180535_6_, p_180535_8_, p_180535_9_);
-    }
-
     @Override
-    public void func_180541_a(TileEntitySign entity, double posX, double posZ, double p_180541_6_, float p_180541_8_, int p_180541_9_)
+    public void renderTileEntityAt(TileEntitySign entity, double x, double y, double z, float partialTicks, int destroyStage)
     {
-        if (!isDropOff(entity, posX, posZ, p_180541_6_))
+        if (!isDropOff(entity, x, y, z))
             return;
 
         IChatComponent [] tempSignText = null;
@@ -57,7 +52,7 @@ public class TileEntitySignRendererEx extends TileEntitySignRenderer
         if ((!SkipsignCore.ModSetting.HideBoard.Bool()) ||
             (SkipsignCore.ModSetting.HideBoard.Bool() && CheckVisibleState(entity)))
         {
-            super.func_180541_a(entity, posX, posZ, p_180541_6_, p_180541_8_, p_180541_9_);
+            super.renderTileEntityAt(entity, x, y, z, partialTicks, destroyStage);
         }
 
         if (tempSignText != null)
@@ -104,7 +99,7 @@ public class TileEntitySignRendererEx extends TileEntitySignRenderer
         {
         case 0:
             // ** VERY SLOW ** in Forge 1.8
-            /* 
+            /*
             AxisAlignedBB aabb = AxisAlignedBB.fromBounds(x - range, y - range, z - range, x + (range + 1), y + (range + 1), z + (range + 1));
             for (Iterator iterator = world.getEntitiesWithinAABB(EntityPlayer.class, aabb).iterator(); iterator.hasNext();)
             {

@@ -31,13 +31,7 @@ public class RenderItemFrameEx extends RenderItemFrame
     }
 
     @Override
-    public void doRender(Entity entity, double x, double y, double z, float p_76986_8_, float partialTicks)
-    {
-        this.doRender((EntityItemFrame)entity, x, y, z, p_76986_8_, partialTicks);
-    }
-
-    @Override
-    public void doRender(EntityItemFrame entity, double x, double y, double z, float p_76986_8_, float partialTicks)
+    public void doRender(EntityItemFrame entity, double x, double y, double z, float entityYaw, float partialTicks)
     {
         ItemStack frameItemStack = null;
 
@@ -50,7 +44,7 @@ public class RenderItemFrameEx extends RenderItemFrame
         if ((!SkipsignCore.ModSetting.HideBoard.Bool()) ||
             (SkipsignCore.ModSetting.HideBoard.Bool() && CheckVisibleState(entity)))
         {
-            super.doRender(entity, x, y, z, p_76986_8_, partialTicks);
+            super.doRender(entity, x, y, z, entityYaw, partialTicks);
         }
 
         if (frameItemStack != null)
@@ -80,7 +74,7 @@ public class RenderItemFrameEx extends RenderItemFrame
         {
         case 0:
             // ** VERY SLOW ** in Forge 1.8
-            /* 
+            /*
             double x = entityItemFrame.posX;
             double y = entityItemFrame.posY;
             double z = entityItemFrame.posZ;
