@@ -5,24 +5,22 @@ buildscript {
             name = "forge"
             url = "http://files.minecraftforge.net/maven"
         }
-        maven {
-            name = "sonatype"
-            url = "https://oss.sonatype.org/content/repositories/snapshots/"
-        }
     }
     dependencies {
-        classpath 'net.minecraftforge.gradle:ForgeGradle:1.2-SNAPSHOT'
+        classpath 'net.minecraftforge.gradle:ForgeGradle:2.1-SNAPSHOT'
     }
 }
 
-apply plugin: 'forge'
+apply plugin: 'net.minecraftforge.gradle.forge'
 
-group= "mods.SkipSignGUI" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
+version = "1.8.9-a"
+group = "mods.SkipSignGUI"
 archivesBaseName = "SkipSignGUI"
-version = "1.8-b"
 
 minecraft {
-    version = "1.8-11.14.3.1450"
+    version = "1.8.9-11.15.1.1722"
+    mappings = "snapshot_20160111"
+
     runDir = "eclipse/assets"
 
     replace "@VERSION@", project.version
@@ -38,6 +36,7 @@ processResources
         include 'mcmod.info'
         expand 'version':project.version, 'mcversion':project.minecraft.version
     }
+
     from(sourceSets.main.resources.srcDirs) {
         exclude 'mcmod.info'
     }
