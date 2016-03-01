@@ -21,11 +21,15 @@ minecraft {
     version = "1.8.9-11.15.1.1722"
     mappings = "snapshot_20160111"
 
-    runDir = "eclipse/assets"
+    runDir = "run"
+    makeObfSourceJar = false
 
     replace "@VERSION@", project.version
     replaceIn "SkipSignCore.java"
 }
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
 
 processResources
 {

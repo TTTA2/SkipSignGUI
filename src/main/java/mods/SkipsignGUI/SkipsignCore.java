@@ -36,7 +36,11 @@ import net.minecraftforge.fml.common.gameevent.TickEvent.RenderTickEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-@Mod(modid = "skipsigngui", version = "@VERSION@")
+@Mod(modid = "skipsigngui",
+     dependencies = "required-after:Forge@[11.14.4,)",
+     acceptableRemoteVersions = "*",
+     acceptedMinecraftVersions = "",
+     version = "@VERSION@")
 public class SkipsignCore
 {
     private boolean key_down = false;
@@ -139,7 +143,7 @@ public class SkipsignCore
     }
 
     public boolean GetHoldKey()
-    { 
+    {
          return key_down;
     }
 
@@ -149,7 +153,7 @@ public class SkipsignCore
         if (event.phase == TickEvent.Phase.START)
         {
             renderPartialTicks = event.renderTickTime;
-    
+
             if (Minecraft.getMinecraft().thePlayer != null) DrawableApi.beginFrustum();
         }
         else if (event.phase == TickEvent.Phase.END)
