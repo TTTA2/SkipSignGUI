@@ -37,7 +37,7 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 @Mod(modid = "skipsigngui",
-     dependencies = "required-after:Forge@[11.14.4,)",
+     dependencies = "required-after:Forge@[11.15.0,)",
      acceptableRemoteVersions = "*",
      acceptedMinecraftVersions = "",
      version = "@VERSION@")
