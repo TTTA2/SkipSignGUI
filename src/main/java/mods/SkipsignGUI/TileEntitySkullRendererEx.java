@@ -1,4 +1,4 @@
-package mods.SkipsignGUI;
+package mods.SkipSignGUI;
 
 import org.lwjgl.input.Keyboard;
 
@@ -10,9 +10,9 @@ import net.minecraft.tileentity.TileEntitySkull;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-import mods.SkipsignGUI.SkipsignCore;
-import mods.SkipsignGUI.SkipSignHelper;
-import mods.SkipsignGUI.DrawableApi;
+import mods.SkipSignGUI.SkipSignCore;
+import mods.SkipSignGUI.SkipSignHelper;
+import mods.SkipSignGUI.DrawableApi;
 
 @SideOnly(Side.CLIENT)
 public class TileEntitySkullRendererEx extends TileEntitySkullRenderer
@@ -34,7 +34,7 @@ public class TileEntitySkullRendererEx extends TileEntitySkullRenderer
 
     public boolean isDropOff(TileEntity tile, double x, double y, double z)
     {
-        if (SkipsignCore.ModSetting.DropOffSkull.Int() == 1)
+        if (SkipSignCore.ModSetting.DropOffSkull.Int() == 1)
         {
             return DrawableApi.isDraw((TileEntitySkull)tile, x, y,  z);
         }
@@ -44,17 +44,17 @@ public class TileEntitySkullRendererEx extends TileEntitySkullRenderer
 
     public boolean CheckVisibleState(TileEntitySkull tileEntitySkull)
     {
-        if (SkipsignCore.ModSetting.SkullVisible.Int() == 1)
+        if (SkipSignCore.ModSetting.SkullVisible.Int() == 1)
             return true;
-        if (SkipsignCore.ModSetting.SkullVisible.Int() == 2)
+        if (SkipSignCore.ModSetting.SkullVisible.Int() == 2)
             return false;
 
-        if (Keyboard.isKeyDown(SkipsignCore.ModSetting.Zoom_Key.Int()))
+        if (Keyboard.isKeyDown(SkipSignCore.ModSetting.Zoom_Key.Int()))
             return true;
 
         if (SkipSignHelper.IsInRangeToRenderDist(
                 SkipSignHelper.GetDistancePlayerToTileEntity(tileEntitySkull),
-                SkipsignCore.ModSetting.SkullRange.Int()))
+                SkipSignCore.ModSetting.SkullRange.Int()))
             return true;
 
         return false;

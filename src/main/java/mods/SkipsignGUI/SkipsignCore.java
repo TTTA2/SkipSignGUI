@@ -1,4 +1,4 @@
-package mods.SkipsignGUI;
+package mods.SkipSignGUI;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -41,7 +41,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
      acceptableRemoteVersions = "*",
      acceptedMinecraftVersions = "",
      version = "@VERSION@")
-public class SkipsignCore
+public class SkipSignCore
 {
     private boolean key_down = false;
     private int HoldTime = 0;

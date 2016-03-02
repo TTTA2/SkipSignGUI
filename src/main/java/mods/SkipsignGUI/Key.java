@@ -1,4 +1,4 @@
-package mods.SkipsignGUI;
+package mods.SkipSignGUI;
 
 import net.minecraftforge.fml.common.FMLLog;
 

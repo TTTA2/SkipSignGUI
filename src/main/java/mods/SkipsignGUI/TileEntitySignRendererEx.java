@@ -1,4 +1,4 @@
-package mods.SkipsignGUI;
+package mods.SkipSignGUI;
 
 import org.lwjgl.input.Keyboard;
 
@@ -12,9 +12,9 @@ import net.minecraft.util.IChatComponent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-import mods.SkipsignGUI.SkipsignCore;
-import mods.SkipsignGUI.SkipSignHelper;
-import mods.SkipsignGUI.DrawableApi;
+import mods.SkipSignGUI.SkipSignCore;
+import mods.SkipSignGUI.SkipSignHelper;
+import mods.SkipSignGUI.DrawableApi;
 
 @SideOnly(Side.CLIENT)
 public class TileEntitySignRendererEx extends TileEntitySignRenderer
@@ -41,8 +41,8 @@ public class TileEntitySignRendererEx extends TileEntitySignRenderer
             }
         }
 
-        if ((!SkipsignCore.ModSetting.HideBoard.Bool()) ||
-            (SkipsignCore.ModSetting.HideBoard.Bool() && CheckVisibleState(entity)))
+        if ((!SkipSignCore.ModSetting.HideBoard.Bool()) ||
+            (SkipSignCore.ModSetting.HideBoard.Bool() && CheckVisibleState(entity)))
         {
             super.renderTileEntityAt(entity, x, y, z, partialTicks, destroyStage);
         }
@@ -58,7 +58,7 @@ public class TileEntitySignRendererEx extends TileEntitySignRenderer
 
     public boolean isDropOff(TileEntity tile, double x, double y, double z)
     {
-        if (SkipsignCore.ModSetting.DropOffSign.Int() == 1)
+        if (SkipSignCore.ModSetting.DropOffSign.Int() == 1)
         {
             return DrawableApi.isDraw((TileEntitySign)tile, x, y,  z);
         }
@@ -67,17 +67,17 @@ public class TileEntitySignRendererEx extends TileEntitySignRenderer
 
     public boolean CheckVisibleState(TileEntitySign tileEntitySign)
     {
-        if (SkipsignCore.ModSetting.SignVisible.Int() == 1)
+        if (SkipSignCore.ModSetting.SignVisible.Int() == 1)
             return true;
-        if (SkipsignCore.ModSetting.SignVisible.Int() == 2)
+        if (SkipSignCore.ModSetting.SignVisible.Int() == 2)
             return false;
 
-        if (Keyboard.isKeyDown(SkipsignCore.ModSetting.Zoom_Key.Int()))
+        if (Keyboard.isKeyDown(SkipSignCore.ModSetting.Zoom_Key.Int()))
             return true;
 
         if (SkipSignHelper.IsInRangeToRenderDist(
                 SkipSignHelper.GetDistancePlayerToTileEntity(tileEntitySign),
-                SkipsignCore.ModSetting.SignRange.Int()))
+                SkipSignCore.ModSetting.SignRange.Int()))
             return true;
 
         return false;

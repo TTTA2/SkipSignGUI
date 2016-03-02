@@ -1,4 +1,4 @@
-package mods.SkipsignGUI;
+package mods.SkipSignGUI;
 
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
@@ -24,7 +24,7 @@ public class DrawableApi
 
     public static void beginFrustum()
     {
-        float f = SkipsignCore.renderPartialTicks;
+        float f = SkipSignCore.renderPartialTicks;
 
         EntityPlayer player = Minecraft.getMinecraft().thePlayer;
 

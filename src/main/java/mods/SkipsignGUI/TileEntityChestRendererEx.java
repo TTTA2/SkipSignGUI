@@ -1,4 +1,4 @@
-package mods.SkipsignGUI;
+package mods.SkipSignGUI;
 
 import org.lwjgl.input.Keyboard;
 
@@ -10,9 +10,9 @@ import net.minecraft.tileentity.TileEntityChest;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-import mods.SkipsignGUI.SkipsignCore;
-import mods.SkipsignGUI.SkipSignHelper;
-import mods.SkipsignGUI.DrawableApi;
+import mods.SkipSignGUI.SkipSignCore;
+import mods.SkipSignGUI.SkipSignHelper;
+import mods.SkipSignGUI.DrawableApi;
 
 @SideOnly(Side.CLIENT)
 public class TileEntityChestRendererEx extends TileEntityChestRenderer
@@ -34,7 +34,7 @@ public class TileEntityChestRendererEx extends TileEntityChestRenderer
 
     public boolean isDropOff(TileEntity tile, double x, double y, double z)
     {
-        if (SkipsignCore.ModSetting.DropOffChest.Int() == 1)
+        if (SkipSignCore.ModSetting.DropOffChest.Int() == 1)
         {
             return DrawableApi.isDraw((TileEntityChest)tile, x, y,  z);
         }
@@ -44,17 +44,17 @@ public class TileEntityChestRendererEx extends TileEntityChestRenderer
 
     public boolean CheckVisibleState(TileEntityChest tileEntityChest)
     {
-        if (SkipsignCore.ModSetting.ChestVisible.Int() == 1)
+        if (SkipSignCore.ModSetting.ChestVisible.Int() == 1)
             return true;
-        if (SkipsignCore.ModSetting.ChestVisible.Int() == 2)
+        if (SkipSignCore.ModSetting.ChestVisible.Int() == 2)
             return false;
 
-        if (Keyboard.isKeyDown(SkipsignCore.ModSetting.Zoom_Key.Int()))
+        if (Keyboard.isKeyDown(SkipSignCore.ModSetting.Zoom_Key.Int()))
             return true;
 
         if (SkipSignHelper.IsInRangeToRenderDist(
                 SkipSignHelper.GetDistancePlayerToTileEntity(tileEntityChest),
-                SkipsignCore.ModSetting.ChestRange.Int()))
+                SkipSignCore.ModSetting.ChestRange.Int()))
             return true;
 
         return false;

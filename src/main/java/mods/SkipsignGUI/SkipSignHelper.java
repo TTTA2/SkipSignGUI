@@ -1,4 +1,4 @@
-package mods.SkipsignGUI;
+package mods.SkipSignGUI;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
