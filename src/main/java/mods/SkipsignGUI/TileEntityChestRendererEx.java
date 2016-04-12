@@ -25,8 +25,11 @@ public class TileEntityChestRendererEx extends TileEntityChestRenderer
     @Override
     public void renderTileEntityAt(TileEntityChest entity, double x, double y, double z, float partialTicks, int destroyStage)
     {
+        if (!isDropOff(entity, x, y, z))
+            return;
+
         if (Minecraft.getMinecraft().thePlayer == null || entity.getWorld() == null ||
-            (isDropOff(entity, x, y, z) && CheckVisibleState(entity)))
+            CheckVisibleState(entity))
         {
             super.renderTileEntityAt(entity, x, y, z, partialTicks, destroyStage);
         }
@@ -35,9 +38,7 @@ public class TileEntityChestRendererEx extends TileEntityChestRenderer
     public boolean isDropOff(TileEntity tile, double x, double y, double z)
     {
         if (SkipSignCore.ModSetting.DropOffChest.Int() == 1)
-        {
-            return DrawableApi.isDraw((TileEntityChest)tile, x, y,  z);
-        }
+            return DrawableApi.isDraw((TileEntityChest)tile, x, y, z);
 
         return true;
     }

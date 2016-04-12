@@ -24,21 +24,39 @@ public class TileEntitySignRendererEx extends TileEntitySignRenderer
         super();
     }
 
+    public IChatComponent [] getSignText(TileEntitySign entity)
+    {
+        IChatComponent [] tempSignText = new IChatComponent[entity.signText.length];
+
+        for (int i = 0; i < entity.signText.length; i++)
+            tempSignText[i] = entity.signText[i];
+
+        return tempSignText;
+    }
+
+    public void setSignText(TileEntitySign entity, IChatComponent [] text)
+    {
+        for (int i = 0; i < entity.signText.length; i++)
+            entity.signText[i] = text[i];
+    }
+
+    public void deleteSignText(TileEntitySign entity)
+    {
+        for (int i = 0; i < entity.signText.length; i++)
+            entity.signText[i] = null;
+    }
+
     @Override
     public void renderTileEntityAt(TileEntitySign entity, double x, double y, double z, float partialTicks, int destroyStage)
     {
         if (!isDropOff(entity, x, y, z))
             return;
 
-        IChatComponent [] tempSignText = null;
+        IChatComponent [] temporaryText = null;
         if (!CheckVisibleState(entity))
         {
-            tempSignText = new IChatComponent[entity.signText.length];
-            for (int i = 0; i < entity.signText.length; i++)
-            {
-                tempSignText[i] = entity.signText[i];
-                entity.signText[i] = null;
-            }
+            temporaryText = getSignText(entity);
+            deleteSignText(entity);
         }
 
         if ((!SkipSignCore.ModSetting.HideBoard.Bool()) ||
@@ -47,20 +65,15 @@ public class TileEntitySignRendererEx extends TileEntitySignRenderer
             super.renderTileEntityAt(entity, x, y, z, partialTicks, destroyStage);
         }
 
-        if (tempSignText != null)
-        {
-            for (int i = 0; i < entity.signText.length; i++)
-            {
-                entity.signText[i] = tempSignText[i];
-            }
-        }
+        if (temporaryText != null)
+            setSignText(entity, temporaryText);
     }
 
     public boolean isDropOff(TileEntity tile, double x, double y, double z)
     {
         if (SkipSignCore.ModSetting.DropOffSign.Int() == 1)
         {
-            return DrawableApi.isDraw((TileEntitySign)tile, x, y,  z);
+            return DrawableApi.isDraw((TileEntitySign)tile, x, y, z);
         }
         return true;
     }

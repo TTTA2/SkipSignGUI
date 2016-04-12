@@ -25,8 +25,11 @@ public class TileEntitySkullRendererEx extends TileEntitySkullRenderer
     @Override
     public void renderTileEntityAt(TileEntitySkull entity, double x, double y, double z, float partialTicks, int destroyStage)
     {
+        if (!isDropOff(entity, x, y, z))
+            return;
+
         if (Minecraft.getMinecraft().thePlayer == null || entity.getWorld() == null ||
-            (isDropOff(entity, x, y, z) && CheckVisibleState(entity)))
+            CheckVisibleState(entity))
         {
             super.renderTileEntityAt(entity, x, y, z, partialTicks, destroyStage);
         }
@@ -36,7 +39,7 @@ public class TileEntitySkullRendererEx extends TileEntitySkullRenderer
     {
         if (SkipSignCore.ModSetting.DropOffSkull.Int() == 1)
         {
-            return DrawableApi.isDraw((TileEntitySkull)tile, x, y,  z);
+            return DrawableApi.isDraw((TileEntitySkull)tile, x, y, z);
         }
 
         return true;
