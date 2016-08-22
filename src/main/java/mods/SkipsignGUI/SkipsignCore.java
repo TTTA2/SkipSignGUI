@@ -13,7 +13,7 @@ import org.lwjgl.input.Keyboard;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.entity.RenderManager;
-import net.minecraft.client.renderer.RenderItem;
+import net.minecraft.client.renderer.entity.RenderItem;
 import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.entity.item.EntityItemFrame;
@@ -37,7 +37,7 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 @Mod(modid = "skipsigngui",
-     dependencies = "required-after:Forge@[12.16.0,)",
+     dependencies = "required-after:Forge@[12.17.0,)",
      acceptableRemoteVersions = "*",
      acceptedMinecraftVersions = "",
      version = "@VERSION@")
