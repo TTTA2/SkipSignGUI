@@ -6,8 +6,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.tileentity.TileEntitySignRenderer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntitySign;
-import net.minecraft.util.ChatComponentText;
-import net.minecraft.util.IChatComponent;
+import net.minecraft.util.text.ITextComponent;
 
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -24,9 +23,9 @@ public class TileEntitySignRendererEx extends TileEntitySignRenderer
         super();
     }
 
-    public IChatComponent [] getSignText(TileEntitySign entity)
+    public ITextComponent [] getSignText(TileEntitySign entity)
     {
-        IChatComponent [] tempSignText = new IChatComponent[entity.signText.length];
+        ITextComponent [] tempSignText = new ITextComponent[entity.signText.length];
 
         for (int i = 0; i < entity.signText.length; i++)
             tempSignText[i] = entity.signText[i];
@@ -34,7 +33,7 @@ public class TileEntitySignRendererEx extends TileEntitySignRenderer
         return tempSignText;
     }
 
-    public void setSignText(TileEntitySign entity, IChatComponent [] text)
+    public void setSignText(TileEntitySign entity, ITextComponent [] text)
     {
         for (int i = 0; i < entity.signText.length; i++)
             entity.signText[i] = text[i];
@@ -52,7 +51,7 @@ public class TileEntitySignRendererEx extends TileEntitySignRenderer
         if (!isDropOff(entity, x, y, z))
             return;
 
-        IChatComponent [] temporaryText = null;
+        ITextComponent [] temporaryText = null;
         if (!CheckVisibleState(entity))
         {
             temporaryText = getSignText(entity);
