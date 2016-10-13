@@ -70,10 +70,6 @@ public class TileEntitySignRendererEx extends TileEntitySignRenderer
 
     public boolean isDropOff(TileEntity tile, double x, double y, double z)
     {
-        if (SkipSignCore.ModSetting.DropOffSign.Int() == 1)
-        {
-            return DrawableApi.isDraw((TileEntitySign)tile, x, y, z);
-        }
         return true;
     }
 

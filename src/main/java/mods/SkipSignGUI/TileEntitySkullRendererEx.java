@@ -37,11 +37,6 @@ public class TileEntitySkullRendererEx extends TileEntitySkullRenderer
 
     public boolean isDropOff(TileEntity tile, double x, double y, double z)
     {
-        if (SkipSignCore.ModSetting.DropOffSkull.Int() == 1)
-        {
-            return DrawableApi.isDraw((TileEntitySkull)tile, x, y, z);
-        }
-
         return true;
     }
 

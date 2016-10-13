@@ -7,6 +7,7 @@ import net.minecraft.client.renderer.tileentity.TileEntityChestRenderer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityChest;
 
+import net.minecraftforge.fml.common.FMLLog;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
@@ -37,9 +38,6 @@ public class TileEntityChestRendererEx extends TileEntityChestRenderer
 
     public boolean isDropOff(TileEntity tile, double x, double y, double z)
     {
-        if (SkipSignCore.ModSetting.DropOffChest.Int() == 1)
-            return DrawableApi.isDraw((TileEntityChest)tile, x, y, z);
-
         return true;
     }
 

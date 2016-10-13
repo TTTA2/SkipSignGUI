@@ -13,7 +13,7 @@ buildscript {
 
 apply plugin: 'net.minecraftforge.gradle.forge'
 
-version = "1.9.4-a"
+version = "1.9.4-b"
 group = "mods.SkipSignGUI"
 archivesBaseName = "SkipSignGUI"
 
@@ -30,6 +30,10 @@ minecraft {
 
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
+
+def defaultEncoding = 'UTF-8'
+tasks.withType(AbstractCompile).each { it.options.encoding = defaultEncoding }
+tasks.withType(GroovyCompile).each { it.groovyOptions.encoding = defaultEncoding }
 
 processResources
 {
