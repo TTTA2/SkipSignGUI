@@ -37,7 +37,7 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 @Mod(modid = "skipsigngui",
-     dependencies = "required-after:Forge@[12.17.0,)",
+     dependencies = "required-after:forge@[13.19.1,)",
      acceptableRemoteVersions = "*",
      acceptedMinecraftVersions = "",
      version = "@VERSION@")
@@ -127,7 +127,7 @@ public class SkipSignCore
     {
         if (Minecraft.getMinecraft().currentScreen == null)
         {
-            EntityPlayer player = Minecraft.getMinecraft().thePlayer;
+            EntityPlayer player = Minecraft.getMinecraft().player;
 
             if (!key_down && Keyboard.isKeyDown(ModSetting.VisibleKey.Int()))
             {
@@ -154,7 +154,7 @@ public class SkipSignCore
         {
             renderPartialTicks = event.renderTickTime;
 
-            if (Minecraft.getMinecraft().thePlayer != null) DrawableApi.beginFrustum();
+            if (Minecraft.getMinecraft().player != null) DrawableApi.beginFrustum();
         }
         else if (event.phase == TickEvent.Phase.END)
         {

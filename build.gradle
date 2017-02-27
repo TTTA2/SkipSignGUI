@@ -16,13 +16,13 @@ plugins {
 }
 apply plugin: 'net.minecraftforge.gradle.forge'
 
-version = "1.10.2-a"
+version = "1.11.2-a"
 group = "mods.SkipSignGUI"
 archivesBaseName = "SkipSignGUI"
 
 minecraft {
-    version = "12.18.2.2111"
-    mappings = "snapshot_20161023"
+    version = "13.20.0.2203"
+    mappings = "snapshot_20170105"
 
     runDir = "run"
     makeObfSourceJar = false

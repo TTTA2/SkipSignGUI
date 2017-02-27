@@ -29,7 +29,7 @@ public class TileEntityChestRendererEx extends TileEntityChestRenderer
         if (!isDropOff(entity, x, y, z))
             return;
 
-        if (Minecraft.getMinecraft().thePlayer == null || entity.getWorld() == null ||
+        if (Minecraft.getMinecraft().player == null || entity.getWorld() == null ||
             CheckVisibleState(entity))
         {
             super.renderTileEntityAt(entity, x, y, z, partialTicks, destroyStage);

@@ -27,7 +27,7 @@ public class DrawableApi
     {
         float f = SkipSignCore.renderPartialTicks;
 
-        EntityPlayer player = Minecraft.getMinecraft().thePlayer;
+        EntityPlayer player = Minecraft.getMinecraft().player;
 
         DX = player.prevPosX + (player.posX - player.prevPosX) * (double)f;
         DY = player.prevPosY + (player.posY - player.prevPosY) * (double)f;
