@@ -30,12 +30,12 @@ public class RenderItemFrameEx extends RenderItemFrame
     @Override
     public void doRender(EntityItemFrame entity, double x, double y, double z, float entityYaw, float partialTicks)
     {
-        ItemStack frameItemStack = null;
+        ItemStack frameItemStack = ItemStack.EMPTY;
 
         if (!CheckVisibleState(entity))
         {
             frameItemStack = entity.getDisplayedItem();
-            entity.setDisplayedItem(null);
+            entity.setDisplayedItem(ItemStack.EMPTY);
         }
 
         if ((!SkipSignCore.ModSetting.HideBoard.Bool()) ||
@@ -44,7 +44,7 @@ public class RenderItemFrameEx extends RenderItemFrame
             super.doRender(entity, x, y, z, entityYaw, partialTicks);
         }
 
-        if (frameItemStack != null)
+        if (!frameItemStack.isEmpty())
         {
             entity.setDisplayedItem(frameItemStack);
         }
@@ -62,7 +62,7 @@ public class RenderItemFrameEx extends RenderItemFrame
 
         if (SkipSignHelper.IsInRangeToRenderDist(
                 SkipSignHelper.GetDistancePlayerToEntity(entityItemFrame),
-                SkipSignCore.ModSetting.ChestRange.Int()))
+                SkipSignCore.ModSetting.FrameRange.Int()))
             return true;
         return false;
     }
