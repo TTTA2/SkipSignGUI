@@ -3,7 +3,7 @@ package mods.SkipSignGUI;
 import org.lwjgl.input.Keyboard;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.tileentity.RenderItemFrame;
+import net.minecraft.client.renderer.entity.RenderItemFrame;
 import net.minecraft.client.renderer.RenderItem;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.entity.Entity;

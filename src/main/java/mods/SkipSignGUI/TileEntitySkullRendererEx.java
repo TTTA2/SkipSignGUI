@@ -23,7 +23,7 @@ public class TileEntitySkullRendererEx extends TileEntitySkullRenderer
     }
 
     @Override
-    public void renderTileEntityAt(TileEntitySkull entity, double x, double y, double z, float partialTicks, int destroyStage)
+    public void renderTileEntityFast(TileEntitySkull entity, double x, double y, double z, float partialTicks, int destroyStage, float partial, net.minecraft.client.renderer.BufferBuilder buffer)
     {
         if (!isDropOff(entity, x, y, z))
             return;
@@ -31,7 +31,7 @@ public class TileEntitySkullRendererEx extends TileEntitySkullRenderer
         if (Minecraft.getMinecraft().player == null || entity.getWorld() == null ||
             CheckVisibleState(entity))
         {
-            super.renderTileEntityAt(entity, x, y, z, partialTicks, destroyStage);
+            super.renderTileEntityFast(entity, x, y, z, partialTicks, destroyStage, partial, buffer);
         }
     }
 

@@ -46,7 +46,7 @@ public class TileEntitySignRendererEx extends TileEntitySignRenderer
     }
 
     @Override
-    public void renderTileEntityAt(TileEntitySign entity, double x, double y, double z, float partialTicks, int destroyStage)
+    public void renderTileEntityFast(TileEntitySign entity, double x, double y, double z, float partialTicks, int destroyStage, float partial, net.minecraft.client.renderer.BufferBuilder buffer)
     {
         if (!isDropOff(entity, x, y, z))
             return;
@@ -61,7 +61,7 @@ public class TileEntitySignRendererEx extends TileEntitySignRenderer
         if ((!SkipSignCore.ModSetting.HideBoard.Bool()) ||
             (SkipSignCore.ModSetting.HideBoard.Bool() && CheckVisibleState(entity)))
         {
-            super.renderTileEntityAt(entity, x, y, z, partialTicks, destroyStage);
+            super.renderTileEntityFast(entity, x, y, z, partialTicks, destroyStage, partial, buffer);
         }
 
         if (temporaryText != null)

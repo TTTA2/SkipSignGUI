@@ -27,7 +27,7 @@ public class GuiOption extends GuiScreen
 {
     public void drawScreen(int par1, int par2, float par3)
     {
-        FontRenderer fontRenderer = this.fontRendererObj;
+        FontRenderer fontRenderer = this.fontRenderer;
         int x = this.width / 2;
         int y = this.height / 2;
         
@@ -51,7 +51,7 @@ public class GuiOption extends GuiScreen
 
     public void initGui()
     {
-        FontRenderer fontRenderer = this.fontRendererObj;
+        FontRenderer fontRenderer = this.fontRenderer;
         
         this.buttonList.clear();
 

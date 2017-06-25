@@ -104,18 +104,18 @@ public class SkipSignCore
 
         TileEntitySignRendererEx signRenderer = new TileEntitySignRendererEx();
         signRenderer.setRendererDispatcher(TileEntityRendererDispatcher.instance);
-        TileEntityRendererDispatcher.instance.mapSpecialRenderers.remove(TileEntitySign.class);
-        TileEntityRendererDispatcher.instance.mapSpecialRenderers.put(TileEntitySign.class, signRenderer);
+        TileEntityRendererDispatcher.instance.renderers.remove(TileEntitySign.class);
+        TileEntityRendererDispatcher.instance.renderers.put(TileEntitySign.class, signRenderer);
 
         TileEntityChestRendererEx chestRenderer = new TileEntityChestRendererEx();
         chestRenderer.setRendererDispatcher(TileEntityRendererDispatcher.instance);
-        TileEntityRendererDispatcher.instance.mapSpecialRenderers.remove(TileEntityChest.class);
-        TileEntityRendererDispatcher.instance.mapSpecialRenderers.put(TileEntityChest.class, chestRenderer);
+        TileEntityRendererDispatcher.instance.renderers.remove(TileEntityChest.class);
+        TileEntityRendererDispatcher.instance.renderers.put(TileEntityChest.class, chestRenderer);
 
         TileEntitySkullRendererEx skullRenderer = new TileEntitySkullRendererEx();
         skullRenderer.setRendererDispatcher(TileEntityRendererDispatcher.instance);
-        TileEntityRendererDispatcher.instance.mapSpecialRenderers.remove(TileEntitySkull.class);
-        TileEntityRendererDispatcher.instance.mapSpecialRenderers.put(TileEntitySkull.class, skullRenderer);
+        TileEntityRendererDispatcher.instance.renderers.remove(TileEntitySkull.class);
+        TileEntityRendererDispatcher.instance.renderers.put(TileEntitySkull.class, skullRenderer);
 
         MinecraftForge.EVENT_BUS.register(this);
         FMLCommonHandler.instance().bus().register(this);
