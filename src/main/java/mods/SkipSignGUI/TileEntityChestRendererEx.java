@@ -24,7 +24,7 @@ public class TileEntityChestRendererEx extends TileEntityChestRenderer
     }
 
     @Override
-    public void renderTileEntityFast(TileEntityChest entity, double x, double y, double z, float partialTicks, int destroyStage, float partial, net.minecraft.client.renderer.BufferBuilder buffer)
+    public void render(TileEntityChest entity, double x, double y, double z, float partialTicks, int destroyStage, float partial)
     {
         if (!isDropOff(entity, x, y, z))
             return;
@@ -32,7 +32,7 @@ public class TileEntityChestRendererEx extends TileEntityChestRenderer
         if (Minecraft.getMinecraft().player == null || entity.getWorld() == null ||
             CheckVisibleState(entity))
         {
-            super.renderTileEntityFast(entity, x, y, z, partialTicks, destroyStage, partial, buffer);
+            super.render(entity, x, y, z, partialTicks, destroyStage, partial);
         }
     }
 
